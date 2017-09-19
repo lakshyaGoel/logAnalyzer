@@ -41,9 +41,10 @@ Please fill out all of the following sections to help us grade your submission:
 
 ## External Dependencies
 
-**Document any non-trivial integrations with 3rd Party code or services here:**
+**Document integrations with 3rd Party code or services here.
+Please do not document required libraries (e.g., Express, Bulma).**
 
-* Library name: description of use
+* Library or service name: description of use
 * ...
 
 **If there's anything else you would like to disclose about how your project
