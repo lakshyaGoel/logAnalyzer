@@ -2,6 +2,8 @@
 
 CSCI 5117, Fall 2017
 
+[Assignment description](https://docs.google.com/document/d/1956Z3EZJi9RWU6JqPHEh5ZZBmDOKFex-HtsBLz66tt4/edit#)
+
 Please fill out all of the following sections to help us grade your submission:
 
 
