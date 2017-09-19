@@ -34,7 +34,8 @@ Please fill out all of the following sections to help us grade your submission:
 
 ## Screenshots of Site
 
-**[Add a screenshot of each key page (maximum 4)](https://stackoverflow.com/questions/10189356/how-to-add-screenshot-to-readmes-in-github-repository):**
+**[Add a screenshot of each key page (maximum 4)](https://stackoverflow.com/questions/10189356/how-to-add-screenshot-to-readmes-in-github-repository)
+along with a very brief caption:**
 
 ![](https://media.giphy.com/media/gJIJjrdhO5OYo/giphy.gif)
 
