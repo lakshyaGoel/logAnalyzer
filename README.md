@@ -53,3 +53,14 @@ relied on external code, expertise, or anything else, please disclose that
 here:**
 
 ...
+
+
+## Links to Test Data
+
+This project requires user-submitted data.  If you have files or other scripts 
+that would be necessary (or helpful) for us to test your application, please 
+link to them here.  For example, if your project parses gzipped apache logs, 
+provide a few gzipped apache logs here.
+
+* link to file
+* ...
