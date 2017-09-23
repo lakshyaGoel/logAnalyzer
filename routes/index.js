@@ -23,6 +23,7 @@ router.post('/crawl', function(req, res){
             // result.status 結果
             // result.headers
             // result.bodyが重要
+            // TODO: MEMO summary showed in terminal check it.
             console.log("summary",result.body);
         });
 
