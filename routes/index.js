@@ -18,7 +18,12 @@ router.post('/crawl', function(req, res){
        console.log("Status code: " + response.statusCode);
        if(response.statusCode === 200) {
          var $ = cheerio.load(body);
-         res.render('web_data', { title: ($('html > body').text()) });
+           var list = [];
+           $("a").each(function(){
+              list.push($(this).attr("href"));
+           });
+
+         res.render('web_data', { title: list });
        }
     });
 });
