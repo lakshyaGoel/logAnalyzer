@@ -20,9 +20,9 @@ router.post('/crawl', function(req, res){
         .send({"url":pageToVisit
             ,"text":"","sentnum":8})
         .end(function (result) {
-            // result.status 結果
-            // result.headers
-            // result.bodyが重要
+            // result.status is just a status of the response, 200 is OK, the other... false.
+            // result.headers is header information of this ajax response.
+            // result.body is a main content(json object) of the response.
             // TODO: need subscription and credit card... it is not working because I did not register
             // TODO: MEMO summary showed in terminal check it.
             console.log("summary",result.body);
