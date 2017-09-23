@@ -31,3 +31,6 @@ npm-debug.log
 
 # aki added
 .idea
+
+# mac filesystem generated file ignore
+.DS_Store
