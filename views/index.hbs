@@ -1,5 +1,41 @@
-<form action="/crawl" method="post">
-  Enter a website: 
-  <input type="text" name="address">
-  <input type="submit" value="Go">
-</form>
+<header class="hero is-primary is-bold">
+	<div class="hero-body">
+		<div class="container">
+			<h1 class="title">Val=n; Web Analyzer</h1>
+			<h2 class="subtitle">Analyse web site information.</h2>
+		</div>
+	</div>
+</header>
+<main class="section">
+	<div class="container main-content">
+		<form action="/crawl" method="post" id="form">
+			<label class="subtitle"> Enter a Website url</label>
+			<div class="field has-addons">
+				<div class="control is-expanded">
+					<input class="input" type="text" name="address" placeholder="http://example.com">
+				</div>
+				<div class="control">
+					<input type="submit" value="Go" class="button is-info submit-button">
+				</div>
+			</div>
+			<div class="notification is-danger is-hidden">
+				{{!<button class="delete"></button> // something wrong}}
+				Your url is not valid. Please check it.<br>
+				Do you forget something like "http://", "https://" or write wrongly like ",com" like that?
+			</div>
+		</form>
+
+	</div>
+</main>
+<footer class="footer">
+	<div class="container">
+		<div class="content has-text-centered">
+			<p>
+				<strong>
+					Val=n; Web Analyzer
+				</strong>
+				by Val=n; group. All right reserved 2017.
+			</p>
+		</div>
+	</div>
+</footer>
