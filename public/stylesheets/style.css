@@ -4,4 +4,28 @@ body {
 a {
   color: #00B7FF; }
 
+#wrap {
+  background-color: #FAFAFA; }
+  #wrap main {
+    height: 100%; }
+    #wrap main .main-content {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+      #wrap main .main-content #form {
+        width: 80%; }
+
+.fade-in {
+  opacity: 0;
+  -webkit-animation: fadeIn 0.2s ease 0s 1 forwards;
+  animation: fadeIn 0.2s ease 0s 1 forwards; }
+
+@-webkit-keyframes fadeIn {
+  100% {
+    opacity: 1; } }
+@keyframes fadeIn {
+  100% {
+    opacity: 1; } }
+
 /*# sourceMappingURL=style.css.map */
