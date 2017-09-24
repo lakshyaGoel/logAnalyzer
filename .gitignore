@@ -33,4 +33,5 @@ npm-debug.log
 .idea
 
 # mac filesystem generated file ignore
-.DS_Store  
+.DS_Store
+style.css.map
