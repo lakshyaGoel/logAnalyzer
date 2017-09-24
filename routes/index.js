@@ -11,6 +11,7 @@ router.get('/', function(req, res, next) {
 router.post('/crawl', function(req, res){
     var pageToVisit = req.body.address;
     console.log("Visiting page " + pageToVisit);
+
     request(pageToVisit, function(error, response, body) {
        if(error) {
          console.log("Error: " + error);
