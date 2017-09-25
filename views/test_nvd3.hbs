@@ -5,11 +5,129 @@
 	<div class="columns">
 		<div class="column first-column">
 			<h2>Pie chart</h2>
+			<svg id="test1" class="mypiechart"></svg>
+
+			<script>
+				/**
+				 * explanation of pie chart
+				 *
+				 * 1. set svg id="test"
+				 * 2. declare graph's width and height as a js variable.
+				 * 3. nv.addGraph code block (copy and paste from example file)
+				 * 4. send a data is really simple, just need key and value(y) and if you want, you could set color.
+				 * then automatically calculate the percentage.
+				 */
+
+				var testdata = [
+					{key: "One", y: 5, color: "#5F5"},
+					{key: "Two", y: 2},
+					{key: "Three", y: 9},
+					{key: "Four", y: 7},
+					{key: "Five", y: 4},
+					{key: "Six", y: 3},
+					{key: "Seven", y: 0.5}
+				];
+
+				var height = 350;
+				var width = 350;
+
+				nv.addGraph(function() {
+					var chart = nv.models.pieChart()
+									.x(function(d) { return d.key })
+									.y(function(d) { return d.y })
+									.width(width)
+									.height(height)
+									.showTooltipPercent(true);
+
+					d3.select("#test1")
+									.datum(testdata)
+									.transition().duration(1200)
+									.attr('width', width)
+									.attr('height', height)
+									.call(chart);
+
+					return chart;
+				});
 
 
+			</script>
 		</div>
 		<div class="column second-column">
 			<h2>Bar chart</h2>
+			<div id="chart1">
+				<svg></svg>
+			</div>
+
+			<script>
+
+				/**
+				 * explanation of bar chart
+				 *
+				 * 1. key = title
+				 * 2. values Array
+				 * 3. values Array has object item which have label and value data.
+				 *
+				 */
+				historicalBarChart = [
+					{
+						key: "Cumulative Return",
+						values: [
+							{
+								"label" : "A" ,
+								"value" : 29.765957771107
+							} ,
+							{
+								"label" : "B" ,
+								"value" : 0
+							} ,
+							{
+								"label" : "C" ,
+								"value" : 32.807804682612
+							} ,
+							{
+								"label" : "D" ,
+								"value" : 196.45946739256
+							} ,
+							{
+								"label" : "E" ,
+								"value" : 0.19434030906893
+							} ,
+							{
+								"label" : "F" ,
+								"value" : 98.079782601442
+							} ,
+							{
+								"label" : "G" ,
+								"value" : 13.925743130903
+							} ,
+							{
+								"label" : "H" ,
+								"value" : 5.1387322875705
+							}
+						]
+					}
+				];
+
+				nv.addGraph(function() {
+					var chart = nv.models.discreteBarChart()
+													.x(function(d) { return d.label })
+													.y(function(d) { return d.value })
+													.staggerLabels(true)
+													//.staggerLabels(historicalBarChart[0].values.length > 8)
+													.showValues(true)
+													.duration(250)
+									;
+
+					d3.select('#chart1 svg')
+									.datum(historicalBarChart)
+									.call(chart);
+
+					nv.utils.windowResize(chart.update);
+					return chart;
+				});
+
+
+			</script>
 		</div>
 	</div>
 	<div class="columns">
