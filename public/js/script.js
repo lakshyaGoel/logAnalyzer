@@ -49,10 +49,6 @@
         }
     });
 
-    $(".upload-button").on("click", function(){
-        $("#input-file").trigger("click");
-    });
-
     // $(document).on("click", ".delete", function(){
     //     toggleAlert(false);
     // });
