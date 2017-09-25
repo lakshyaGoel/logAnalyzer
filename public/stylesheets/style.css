@@ -27,5 +27,13 @@ a {
 @keyframes fadeIn {
   100% {
     opacity: 1; } }
+#test-nvd3 .first-column {
+  background-color: #F44336; }
+#test-nvd3 .second-column {
+  background-color: #9C27B0; }
+#test-nvd3 .third-column {
+  background-color: #3F51B5; }
+#test-nvd3 .fourth-column {
+  background-color: #009688; }
 
 /*# sourceMappingURL=style.css.map */
