@@ -38,3 +38,23 @@ a {
     opacity: 1;
   }
 }
+
+$first: #F44336;
+$second: #9C27B0;
+$third: #3F51B5;
+$fourth: #009688;
+
+#test-nvd3{
+  .first-column{
+    background-color: $first;
+  }
+  .second-column{
+    background-color: $second;
+  }
+  .third-column{
+    background-color: $third;
+  }
+  .fourth-column{
+    background-color: $fourth;
+  }
+}

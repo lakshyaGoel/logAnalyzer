@@ -24,9 +24,13 @@
             }
         }
     }
+
+
     $('#theLogField').change(function () {
         console.log('picked file', $('#theLogField')[0].files[0]);
     });
+
+
     $('#theAjaxButton').click(function (e) {
         // how to select the file itself
         var f = $('#theLogField')[0].files[0];
