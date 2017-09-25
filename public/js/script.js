@@ -1,6 +1,5 @@
-(function($){
-
-    function toggleAlert(toggle){
+(function ($) {
+    function toggleAlert(toggle) {
         /**
          * toggleAlert(toggle)
          * if toggle is true, then show alert with animation,
@@ -9,49 +8,45 @@
          *
          * @param: bool toggle
          */
-        if(toggle !== true && toggle !== false){
+        if (toggle !== true && toggle !== false) {
             toggle = false;
         }
-
         var $alert = $(".notification");
         var key = "is-hidden";
-        if(toggle){// toggle = true(show)
-            if($alert.hasClass(key)){
+        if (toggle) { // toggle = true(show)
+            if ($alert.hasClass(key)) {
                 $alert.removeClass(key).addClass("fade-in");
             }
-        }else{// toggle = false(hide)
-            if(!$alert.hasClass(key)){
+        }
+        else { // toggle = false(hide)
+            if (!$alert.hasClass(key)) {
                 $alert.removeClass("fade-in").addClass(key);
             }
         }
     }
-
-
-
-    function is_valid_url(url) {
-        /**
-         * is_valid_url(url)
-         * Check url as a valid url or not.
-         *
-         * @url: https://stackoverflow.com/questions/24908208/url-validation-jquery-using-regex
-         * @param: string url
-         * @return: bool
-         */
-        return /^http(s)?:\/\/(www\.)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/.test(url);
-    }
-
-    $("#form").submit(function(){
-        if(is_valid_url($('[name="address"]').val())){
-
-        }else{
-            toggleAlert(true);
-            return false;
-        }
+    $('#theLogField').change(function () {
+        console.log('picked file', $('#theLogField')[0].files[0]);
     });
-
-    // $(document).on("click", ".delete", function(){
-    //     toggleAlert(false);
-    // });
-
-
+    $('#theAjaxButton').click(function (e) {
+        // how to select the file itself
+        var f = $('#theLogField')[0].files[0];
+        if (!f) {
+            alert('pick a file');
+            return;
+        }
+        // create the
+        var fd = new FormData();
+        fd.append('ajaxfile', f);
+        $.ajax({
+            url: '/upload-file-ajax'
+            , data: fd
+            , processData: false
+            , contentType: false
+            , type: 'POST'
+            , success: function (data) {
+                console.log('data', data);
+                $('#lg').html(JSON.stringify(data.fileContent));
+            }
+        });
+    });
 })(jQuery);
