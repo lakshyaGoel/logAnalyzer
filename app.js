@@ -4,12 +4,21 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var index = require('./routes/index');
-var app = express();
-var multer = require('multer')
+// file upload support
+var multer = require('multer');
 var upload = multer({
     storage: multer.memoryStorage()
 });
+
+
+// route file import
+var index = require('./routes/index');
+var test_nvd3 = require('./routes/test_nvd3');
+
+
+var app = express();
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -22,7 +31,13 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+// route operation
 app.use('/', index);
+app.use('/test_nvd3', test_nvd3);
+
+
 app.post('/upload-file-ajax', upload.single('ajaxfile'), function (req, res) {
     if (!req.file) {
         res.status(500).send('error: no file');
@@ -43,12 +58,16 @@ app.post('/upload-file-ajax', upload.single('ajaxfile'), function (req, res) {
         , 'fileContent': text
     });
 });
+
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
+
+
 // error handler
 app.use(function (err, req, res, next) {
     // set locals, only providing error in development
@@ -58,4 +77,6 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
+
+
 module.exports = app;
