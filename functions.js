@@ -4,7 +4,7 @@
 
 var fileRawText;
 
-function readTestText(){
+function readTestText(callback){
     /**
      * readTextText();
      *
@@ -14,21 +14,18 @@ function readTestText(){
      * @return string
      */
     var fs = require('fs');
-    fs.readFileSync("./test_data/log.txt", 'utf-8', function(err, text){
+    fs.readFile("./test_data/log.txt", 'utf-8', function(err, text){
         var result = "";
         if(!err){
             result = text;
         }
-        return result;
+        callback(result);
     });
 }
 
 
-// TODO: modify chaining. see Promise or something.
-function parseLog(){
-    var fs = require('fs');
-
-    fs.readFile("./test_data/log.txt", 'utf-8', function(err, text){
+function parseLog(callback){
+    readTestText(function(text){
         var serverLogRawText = text;
         var result = [];
         var i;
@@ -42,17 +39,14 @@ function parseLog(){
                 var appendObject = {
                     "IP": lineItem[1],// TODO: if IP is not given like "" or "-", then data never match now...
                     "Time": lineItem[2],//TODO: need to wrap datetime?
-                    "HTTP": lineItem[3],
-                    "Status": lineItem[4],
-                    "Size": lineItem[5],
-                    "Referer": lineItem[6]// TODO: separate or check regex again.
+                    "HTTP": lineItem[3], "Status": lineItem[4], "Size": lineItem[5], "Referer": lineItem[6]// TODO: separate or check regex again.
                     // "UA": lineItem[6].split("\"")[]
                 };
-                console.log("obj",appendObject);
+                // console.log("obj", appendObject);
                 result.push(appendObject);
             }
         }
-        return result;
+        callback(result);
     });
 }
 
