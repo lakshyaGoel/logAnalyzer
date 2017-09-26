@@ -3,11 +3,15 @@ var router = express.Router();
 var request = require('request');
 var cheerio = require('cheerio');
 var URL = require('url-parse');
+
+
 router.get('/', function (req, res, next) {
     res.render('index', {
         title: 'Express'
     });
 });
+
+
 router.post('/crawl', function (req, res) {
     var pageToVisit = req.body.address;
     console.log("Visiting page " + pageToVisit);

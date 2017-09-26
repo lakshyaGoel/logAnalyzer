@@ -6,17 +6,20 @@
 		<div class="column first-column">
 			<h2>Browser and OS Pie chart</h2>
 			<svg id="test1" class="mypiechart"></svg>
-
 			<script>
 				/**
 				 * explanation of pie chart
 				 *
-				 * 1. set svg id="test"
+				 * 1. set svg id="test" in html.
 				 * 2. declare graph's width and height as a js variable.
-				 * 3. nv.addGraph code block (copy and paste from example file)
-				 * 4. send a data is really simple, just need key and value(y) and if you want, you could set color.
+				 * 3. generate data for the graph.
+				 * 4. nv.addGraph code block (copy and paste from example file)
+				 *
+				 * data style is really simple, just need key and value(y) and if you want, you could set color.
 				 * then automatically calculate the percentage.
 				 */
+				var height = 350;
+				var width = 350;
 
 				var testdata = [
 					{{#each UA}}
@@ -24,9 +27,6 @@
 						},
 					{{/each}}
 				];
-
-				var height = 350;
-				var width = 350;
 
 				nv.addGraph(function() {
 					var chart = nv.models.pieChart()
@@ -45,8 +45,6 @@
 
 					return chart;
 				});
-
-
 			</script>
 		</div>
 		<div class="column second-column">
@@ -122,14 +120,109 @@
 					nv.utils.windowResize(chart.update);
 					return chart;
 				});
-
-
 			</script>
 		</div>
 	</div>
 	<div class="columns">
 		<div class="column third-column">
 			<h2>line graph</h2>
+			<div id="line-chart"></div>
+
+			<script>
+				// Wrapping in nv.addGraph allows for '0 timeout render', stores rendered charts in nv.graphs, and may do more in the future... it's NOT required
+				var chart;
+				var data;
+				var legendPosition = "top";
+
+
+				nv.addGraph(function() {
+					chart = nv.models.lineChart()
+									.options({
+										duration: 300,
+										useInteractiveGuideline: true
+									})
+					;
+
+					// chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately
+					chart.xAxis
+									.axisLabel("Time (s)")
+									.tickFormat(d3.format(',.1f'))
+									.staggerLabels(true)
+					;
+
+					chart.yAxis
+									.axisLabel('Voltage (v)')
+									.tickFormat(function(d) {
+										if (d == null) {
+											return 'N/A';
+										}
+										return d3.format(',.2f')(d);
+									})
+					;
+
+					data = sinAndCos();
+
+					d3.select('#line-chart').append('svg')
+									.datum(data)
+									.call(chart);
+
+					nv.utils.windowResize(chart.update);
+
+					return chart;
+				});
+
+				function sinAndCos() {
+					var sin = [],
+									sin2 = [],
+									cos = [],
+									rand = [],
+									rand2 = []
+									;
+
+					for (var i = 0; i < 100; i++) {
+						sin.push({x: i, y: i % 10 == 5 ? null : Math.sin(i/10) }); //the nulls are to show how defined works
+						sin2.push({x: i, y: Math.sin(i/5) * 0.4 - 0.25});
+						cos.push({x: i, y: .5 * Math.cos(i/10)});
+//						rand.push({x:i, y: Math.random() / 10});
+//						rand2.push({x: i, y: Math.cos(i/10) + Math.random() / 10 })
+					}
+
+					return [
+						{
+							area: true,
+							values: sin,
+							key: "Sine Wave",
+							color: "#ff7f0e",
+							strokeWidth: 4,
+							classed: 'dashed'
+						},
+						{
+							values: cos,
+							key: "Cosine Wave",
+							color: "#2ca02c"
+						},
+						{
+							values: rand,
+							key: "Random Points",
+							color: "#2222ff"
+						},
+						{
+							values: rand2,
+							key: "Random Cosine",
+							color: "#667711",
+							strokeWidth: 3.5
+						},
+						{
+							area: true,
+							values: sin2,
+							key: "Fill opacity",
+							color: "#EF9CFB",
+							fillOpacity: .1
+						}
+					];
+				}
+			</script>
+
 		</div>
 		<div class="column fourth-column">
 
