@@ -1,9 +1,6 @@
 /**
  * Created by reiven on 2017/09/25.
  */
-
-var fileRawText;
-
 function readTestText(callback){
     /**
      * readTextText();
@@ -31,7 +28,7 @@ function parseLog(callback){
         var i;
         var serverLogList = serverLogRawText.split("\n");
         var length = serverLogList.length;
-        var regex = /([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})\s-\s-\s\[(.*)\]\s\"(.*)\"\s([0-9]{1,3})\s([0-9]+)\s\"(.*)\"\s\"(.*)\"/;
+        var regex = /([0-9]{0,3}\.[0-9]{0,3}\.[0-9]{0,3})\s-\s-\s\[(.*)\]\s\"(.*)\"\s([0-9]{1,3})\s([0-9]+)\s\"(.+)\"\s\"(.+)\"\s\"(.+)\"/;
 
         for(i = 0; i < length; i++){
             var lineItem = serverLogList[i].match(regex);
@@ -39,8 +36,11 @@ function parseLog(callback){
                 var appendObject = {
                     "IP": lineItem[1],// TODO: if IP is not given like "" or "-", then data never match now...
                     "Time": lineItem[2],//TODO: need to wrap datetime?
-                    "HTTP": lineItem[3], "Status": lineItem[4], "Size": lineItem[5], "Referer": lineItem[6]// TODO: separate or check regex again.
-                    // "UA": lineItem[6].split("\"")[]
+                    "HTTP": lineItem[3],
+                    "Status": lineItem[4],
+                    "Size": parseInt(lineItem[5]),
+                    "Referer": lineItem[6],
+                    "UA": lineItem[7]
                 };
                 // console.log("obj", appendObject);
                 result.push(appendObject);
