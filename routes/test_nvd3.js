@@ -16,7 +16,9 @@ router.get('/', function(req, res, next) {
 
     var functions = require("../functions");
 
-    functions.parseServerLog();
+    functions.parseServerLog(function(a){
+        console.log("inside functions.parseServerLog", a);
+    });
 
   res.render('test_nvd3', { title: 'NVD3 test' });
 });
