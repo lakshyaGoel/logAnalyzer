@@ -14,6 +14,10 @@ router.get('/', function(req, res, next) {
      *      - line graph
      */
 
+    var functions = require("../functions");
+
+    functions.parseServerLog();
+
   res.render('test_nvd3', { title: 'NVD3 test' });
 });
 
