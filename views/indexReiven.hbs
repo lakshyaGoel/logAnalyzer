@@ -13,11 +13,20 @@
 							$("#file-trigger").on("click", function(){
 								$("#theLogField").trigger("click");
 							});
+							setInterval(function(){
+								var filename = $("#theLogField").val();
+								if(filename){
+									filename = filename.split(/\\|\\/);
+									filename = filename[filename.length - 1];
+									$(".filename").html("File selected:" + filename);
+								}
+							}, 500);
 						})(jQuery);
 					</script>
 
 					<input class="is-hidden" type="file" name="thefile" id="theLogField">
 					<input type="submit" value="Go" class="button is-info submit-button">
+					<p class="filename"></p>
 				</div>
 				<div class="control">
 
