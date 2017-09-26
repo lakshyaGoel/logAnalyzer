@@ -7,10 +7,20 @@
 			<label class="subtitle"> Upload a log file</label>
 			<div class="field">
 				<div class="control">
-					<input class="input" type="file" name="thefile" id="theLogField">
+					<a class="button" id="file-trigger" href="#">Upload Log File</a>
+					<script>
+						(function ($) {
+							$("#file-trigger").on("click", function(){
+								$("#theLogField").trigger("click");
+							});
+						})(jQuery);
+					</script>
+
+					<input class="is-hidden" type="file" name="thefile" id="theLogField">
+					<input type="submit" value="Go" class="button is-info submit-button">
 				</div>
 				<div class="control">
-					<input type="submit" value="Go" class="button is-info submit-button">
+
 				</div>
 			</div>
 		</form>
