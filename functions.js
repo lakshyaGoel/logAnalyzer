@@ -51,6 +51,7 @@ function parseLogTest(callback){
                     "Referer": lineItem[6],
                     "UA": lineItem[7]
                 };
+                moment.
                 // console.log("obj", appendObject);
                 result.push(appendObject);
             }
@@ -61,6 +62,7 @@ function parseLogTest(callback){
 
 function parseLog(text, callback){
     // console.log("hello from the function side.\n\n",text);
+    var moment = require("moment");
     var serverLogRawText = text;
     var result = [];
     var i;
@@ -73,14 +75,14 @@ function parseLog(text, callback){
         if(lineItem){
             var appendObject = {
                 "IP": lineItem[1],// TODO: if IP is not given like "" or "-", then data never match now...
-                "Time": lineItem[2],//TODO: need to wrap datetime?
+                "Time": moment(lineItem[2], "DD/MMM/YYYY:HH:mm:ss Z"),//URL: http://momentjs.com/docs/
                 "HTTP": lineItem[3],
                 "Status": lineItem[4],
                 "Size": parseInt(lineItem[5]),
                 "Referer": lineItem[6],
                 "UA": lineItem[7]
             };
-            // console.log("obj", appendObject);
+            console.log("obj", appendObject);
             result.push(appendObject);
         }
     }
