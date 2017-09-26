@@ -14,6 +14,7 @@ var upload = multer({
 // route file import
 var index = require('./routes/index');
 var test_nvd3 = require('./routes/test_nvd3');
+var reiven = require('./routes/reiven');
 
 
 var app = express();
@@ -36,6 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // route operation
 app.use('/', index);
 app.use('/test_nvd3', test_nvd3);
+app.use('/reiven', reiven);
 
 
 app.post('/upload-file-ajax', upload.single('ajaxfile'), function (req, res) {

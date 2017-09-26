@@ -1,9 +1,22 @@
 var express = require('express');
 var router = express.Router();
+var request = require('request');
 var cheerio = require('cheerio');
+var URL = require('url-parse');
+// parse User Agent
 var uaParser = require('ua-parser-js');
+// add multer lib to support file uploads
+var multer  = require('multer')
+var upload = multer({ storage: multer.memoryStorage() });
 
-router.get('/', function(req, res, next){
+router.get('/', function (req, res, next) {
+    res.render('indexReiven', {
+        title: 'Reiven Test'
+    });
+});
+
+
+router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
     // TODO: make json from test data and send it.
     /**
      * 4. chart it in embed script tags first to test.
@@ -13,7 +26,13 @@ router.get('/', function(req, res, next){
 
     var functions = require("../functions");
 
-    functions.parseServerLog(function(data){
+    if (!req.file) {
+        res.status(500).send('error: no file');
+    }
+
+    // console.log(req.file.buffer.toString('UTF-8'));
+
+    functions.parseServerLog(req.file.buffer.toString('UTF-8') ,function(data){
         // console.log("inside functions.parseServerLog", data);
         var UA = {};
         var sendData = [];
@@ -43,7 +62,6 @@ router.get('/', function(req, res, next){
                 "key": Object.keys(UA)[i], "value": UA[Object.keys(UA)[i]]
             });
         }
-
         res.render('test_nvd3', {title: 'NVD3 test', UA: sendData});
     });// end functions.parseServerLog;
 });
