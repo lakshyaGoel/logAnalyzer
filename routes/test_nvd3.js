@@ -18,6 +18,7 @@ router.get('/', function(req, res, next) {
     functions.parseServerLog(function(data){
         // console.log("inside functions.parseServerLog", data);
         var UA = {};
+        var sendData = [];
         var i;
 
         for(i = 0; i < data.length; i++){
@@ -26,13 +27,15 @@ router.get('/', function(req, res, next) {
             var os = uaData["os"]["name"];
             var appendData = uaData["browser"]["name"] + " on ";
             if(os == "Windows"){
-                appendData += os +"-" + uaData["os"]["version"];
+                appendData += os + uaData["os"]["version"];
             }else if(
                 os == "Mac OS" ||
                 os == "Android" ||
                 os == "iOS"
             ){
                 appendData += os;
+            }else{
+                appendData = "others";
             }
             if(Object.keys(UA).indexOf(appendData) >= 0){
                 UA[appendData] += 1;
@@ -41,10 +44,17 @@ router.get('/', function(req, res, next) {
             }
         }
         console.log(UA);
+        for(i = 0; i < Object.keys(UA).length; i++){
+            sendData.push({
+                "key": Object.keys(UA)[i],
+                "value": UA[Object.keys(UA)[i]]
+            });
+        }
 
+        res.render('test_nvd3', { title: 'NVD3 test', UA: sendData });
     });
 
-  res.render('test_nvd3', { title: 'NVD3 test' });
+
 });
 
 module.exports = router;
