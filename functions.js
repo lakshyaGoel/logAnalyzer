@@ -44,7 +44,7 @@ function parseLogTest(callback){
             if(lineItem){
                 var appendObject = {
                     "IP": lineItem[1],// TODO: if IP is not given like "" or "-", then data never match now...
-                    "Time": lineItem[2],//TODO: need to wrap datetime?
+                    "Time": lineItem[2],//TODO: need to wrap datetime? reference url: https://github.com/knowledgecode/date-and-time or https://momentjs.com/docs/
                     "HTTP": lineItem[3],
                     "Status": lineItem[4],
                     "Size": parseInt(lineItem[5]),
