@@ -35,10 +35,12 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
         // console.log("This is callback(~= inside) functions.parseServerLog", data);
         var UA = {};
         var piChartData = [];
+        var fileTypeData = [];
         var i;
+        var type
 
         for(i = 0; i < data.length; i++){
-            // console.log(data[i]["UA"]);
+            //console.log(data[i]);
 
             // data parsing for piChart
             var uaData = uaParser(data[i]["UA"]);
@@ -51,7 +53,7 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
             }
 
             if(uaData["browser"]["name"] == undefined){
-                console.log("browser",typeof(uaData["browser"]["name"]));
+                //console.log("browser",typeof(uaData["browser"]["name"]));
                 appendData = uaData["browser"]["name"];
             }
 
@@ -61,18 +63,28 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
                 UA[appendData] = 1;
             }
 
-
+            //data for parsing the file types for chart
+            var http = data[i]["HTTP"];
+            http = http.split('/');
+            var ftype = ((http[http.length - 2]).split(" "))[0];
+            ftype = ftype.split(".");
+            ftype = ftype[ftype.length - 1];
+            ftype = ftype.split("?");
+            fileTypeData.push({
+                "file": ftype[0],
+                "requestType": http[0],
+                "status": data[i]["Status"]
+            });
             // data parsing for lineChart
 
             // data parsing for barChart
         }
-        // console.log(UA);
         for(i = 0; i < Object.keys(UA).length; i++){
             piChartData.push({
                 "key": Object.keys(UA)[i], "value": UA[Object.keys(UA)[i]]
             });
         }
-        res.render('test_nvd3', {title: 'NVD3 test', piChartData: piChartData});
+        res.render('test_nvd3', {title: 'NVD3 test', piChartData: piChartData, fileTypeData: fileTypeData});
     });// end functions.parseServerLog;
 });
 
