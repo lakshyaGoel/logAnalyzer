@@ -47,14 +47,19 @@ along with a very brief caption:**
 **Document integrations with 3rd Party code or services here.
 Please do not document required libraries (e.g., Express, Bulma).**
 
-* Library or service name: description of use
-* ...
+- [jquery3.2.1](https://jquery.com/): parsing dom, form processing
+- [d3.js](https://d3js.org/): to using nv.d3
+- [nv.d3](http://nvd3.org/): generating graph, chart
+- [moment.js](https://momentjs.com/): parsing time much easier than js default Date() class.
+- [multer](https://github.com/expressjs/multer): sending data from client to sever
+- [request](https://www.npmjs.com/package/request): controlling http?. Maybe default to express. But to prevent plagiarism, I write that
+- [ua-parser-js](https://github.com/faisalman/ua-parser-js): parsing user agent easily
+- [Sass](http://sass-lang.com/): css preprocessor
+- [Ruby](https://www.ruby-lang.org/en/): to use Sass
 
 **If there's anything else you would like to disclose about how your project
 relied on external code, expertise, or anything else, please disclose that
 here:**
-
-...
 
 
 ## Links to Test Data
