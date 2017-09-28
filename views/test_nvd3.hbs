@@ -40,78 +40,31 @@
 			</script>
 		</div>
 		<div class="column second-column">
-			<h2>Bar chart</h2>
-			<div id="chart1">
-				<svg></svg>
-			</div>
+			<h2>Size chart</h2>
+
+				<svg id="sizeChart" class="barChart"></svg>
 
 			<script>
-
-				/**
-				 * explanation of bar chart
-				 *
-				 * 1. key = title
-				 * 2. values Array
-				 * 3. values Array has object item which have label and value data.
-				 *
-				 */
-				historicalBarChart = [
-					{
-						key: "Cumulative Return",
-						values: [
-							{
-								"label" : "A" ,
-								"value" : 29.765957771107
-							} ,
-							{
-								"label" : "B" ,
-								"value" : 0
-							} ,
-							{
-								"label" : "C" ,
-								"value" : 32.807804682612
-							} ,
-							{
-								"label" : "D" ,
-								"value" : 196.45946739256
-							} ,
-							{
-								"label" : "E" ,
-								"value" : 0.19434030906893
-							} ,
-							{
-								"label" : "F" ,
-								"value" : 98.079782601442
-							} ,
-							{
-								"label" : "G" ,
-								"value" : 13.925743130903
-							} ,
-							{
-								"label" : "H" ,
-								"value" : 5.1387322875705
-							}
-						]
-					}
-				];
-
-				nv.addGraph(function() {
-					var chart = nv.models.discreteBarChart()
-													.x(function(d) { return d.label })
-													.y(function(d) { return d.value })
-													.staggerLabels(true)
-													//.staggerLabels(historicalBarChart[0].values.length > 8)
-													.showValues(true)
-													.duration(250)
-									;
-
-					d3.select('#chart1 svg')
-									.datum(historicalBarChart)
-									.call(chart);
-
-					nv.utils.windowResize(chart.update);
-					return chart;
-				});
+			var multiBarHorizontalData={ "values": [{
+					key:"Day",
+					color:"#67777",
+					values:[
+						{{#each barChartData1}}
+							{label: "{{key}}", value:{{value}}
+							},
+						{{/each}}
+					]
+				},
+				{
+					key:"Night",
+					color:"#46994",
+					values:[
+						{{#each barChartData2}}
+							{label: "{{key}}", value:{{value}}
+							},
+						{{/each}}
+					]
+				}] };
 			</script>
 		</div>
 	</div>
@@ -227,7 +180,7 @@
                                 .color(d3.scale.category10().range());
                     chart.xAxis.tickFormat(d3.format('.02f'));
                     chart.yAxis.tickFormat(d3.format('.02f'));
-                    
+
                     var myData = randomData(2, 40);
                     d3.select('#scatterTest')
                       .datum(myData)
@@ -252,7 +205,7 @@
                         shapes = ['circle'],
                         requests = ['POST', 'GET'],
                         random = d3.random.normal();
-                    
+
                     for (i = 0; i < groups; i++) {
                         data.push({
                             key: requests[i],

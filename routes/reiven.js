@@ -6,7 +6,7 @@ var uaParser = require('ua-parser-js');
 // add multer lib to support file uploads
 var multer  = require('multer');
 var upload = multer({ storage: multer.memoryStorage() });
-
+var moment = require('moment');
 
 router.get('/', function (req, res, next) {
     res.render('indexReiven', {
@@ -36,6 +36,10 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
         var UA = {};
         var piChartData = [];
         var fileTypeData = [];
+        var barChartData1 = [];
+        var barChartData2 = [];
+        var aMap = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+
         var i;
         var type
 
@@ -78,13 +82,28 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
             // data parsing for lineChart
 
             // data parsing for barChart
+            var hr =data[i]["Time"].hours();
+            var sz =data[i]["Size"];
+            aMap[hr]= aMap[hr]+sz;
+
         }
         for(i = 0; i < Object.keys(UA).length; i++){
             piChartData.push({
                 "key": Object.keys(UA)[i], "value": UA[Object.keys(UA)[i]]
             });
+          }
+        for(i = 0; i <12; i++){
+            barChartData1.push({
+                  "key": i, "value": aMap[i]
+              });
         }
-        res.render('test_nvd3', {title: 'NVD3 test', piChartData: piChartData, fileTypeData: fileTypeData});
+        for(i = 12; i <=23; i++){
+            barChartData2.push({
+                  "key": i, "value": aMap[i]
+              });
+        }
+
+        res.render('test_nvd3', {title: 'NVD3 test', piChartData: piChartData, fileTypeData: fileTypeData, barChartData1:barChartData1, barChartData2:barChartData2});
     });// end functions.parseServerLog;
 });
 
