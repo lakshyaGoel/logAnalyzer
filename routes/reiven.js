@@ -1,12 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var request = require('request');
 var cheerio = require('cheerio');
-var URL = require('url-parse');
 // parse User Agent
 var uaParser = require('ua-parser-js');
 // add multer lib to support file uploads
-var multer  = require('multer')
+var multer  = require('multer');
 var upload = multer({ storage: multer.memoryStorage() });
 
 
