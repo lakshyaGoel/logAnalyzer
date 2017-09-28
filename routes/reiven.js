@@ -34,36 +34,47 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
     // console.log(req.file.buffer.toString('UTF-8'));
 
     functions.parseServerLog(req.file.buffer.toString('UTF-8') ,function(data){
-        // console.log("inside functions.parseServerLog", data);
+        // console.log("This is callback(~= inside) functions.parseServerLog", data);
         var UA = {};
-        var sendData = [];
+        var piChartData = [];
         var i;
 
         for(i = 0; i < data.length; i++){
             // console.log(data[i]["UA"]);
+
+            // data parsing for piChart
             var uaData = uaParser(data[i]["UA"]);
             var os = uaData["os"]["name"];
             var appendData = uaData["browser"]["name"] + " on ";
-            if(os == "Windows"){
-                appendData += os + uaData["os"]["version"];
-            }else if(os == "Mac OS" || os == "Android" || os == "iOS"){
+            if(os == "Windows" ||os == "Mac OS" || os == "Android" || os == "iOS" || os == "Linux"){
                 appendData += os;
             }else{
-                appendData = "others";
+                appendData += "Other";
             }
+
+            if(uaData["browser"]["name"] == undefined){
+                console.log("browser",typeof(uaData["browser"]["name"]));
+                appendData = uaData["browser"]["name"];
+            }
+
             if(Object.keys(UA).indexOf(appendData) >= 0){
                 UA[appendData] += 1;
             }else{
                 UA[appendData] = 1;
             }
+
+
+            // data parsing for lineChart
+
+            // data parsing for barChart
         }
         // console.log(UA);
         for(i = 0; i < Object.keys(UA).length; i++){
-            sendData.push({
+            piChartData.push({
                 "key": Object.keys(UA)[i], "value": UA[Object.keys(UA)[i]]
             });
         }
-        res.render('test_nvd3', {title: 'NVD3 test', UA: sendData});
+        res.render('test_nvd3', {title: 'NVD3 test', piChartData: piChartData});
     });// end functions.parseServerLog;
 });
 
