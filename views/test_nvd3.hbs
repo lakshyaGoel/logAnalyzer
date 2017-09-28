@@ -19,11 +19,12 @@
 				 * then automatically calculate the percentage.
 				 */
 
-				var width = 350;
+				var $firstColumn = $("first-column");
+				var width = $firstColumn.width();
 				var height = 350;
 
 				var testdata = [
-					{{#each UA}}
+					{{#each piChartData}}
 						{key: "{{key}}", y:{{value}}
 						},
 					{{/each}}
