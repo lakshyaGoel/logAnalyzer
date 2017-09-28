@@ -68,7 +68,7 @@ function parseLog(text, callback){
     var i;
     var serverLogList = serverLogRawText.split("\n");
     var length = serverLogList.length;
-    var regex = /([0-9]{0,3}\.[0-9]{0,3}\.[0-9]{0,3})\s-\s-\s\[(.*)\]\s\"(.*)\"\s([0-9]{1,3})\s([0-9]+)\s\"(.+)\"\s\"(.+)\"\s\"(.+)\"/;
+    var regex = /([0-9]{0,3}\.[0-9]{0,3}\.[0-9]{0,3})\s-\s-\s\[(.*)\]\s\"(.*)\"\s([0123456789]{1,3})\s([0123456789-]+)\s\"(.+)\"\s\"(.+)\"\s\"(.+)\"/;
 
     for(i = 0; i < length; i++){
         var lineItem = serverLogList[i].match(regex);
@@ -82,7 +82,10 @@ function parseLog(text, callback){
                 "Referer": lineItem[6],
                 "UA": lineItem[7]
             };
-            console.log("obj", appendObject);
+            // if(appendObject["Status"].indexOf( "40") != -1 || appendObject["Status"].indexOf("30") != -1){
+            //     console.log("obj2", appendObject);
+            // }
+
             result.push(appendObject);
         }
     }
