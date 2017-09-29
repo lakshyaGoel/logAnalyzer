@@ -194,27 +194,8 @@
 
 		</div>
 		<div class="column fourth-column">
-            <svg id="scatterTest" class="myscatter"></svg>
+            <svg id="scatterTest" class="with-3d-shadow with-transitions"></svg>
             <script>
-                nv.addGraph(function() {
-                    var chart = nv.models.scatterChart()
-                                .showDistX(true)
-                                .showDistY(true)
-                    .height(height)
-                                .color(d3.scale.category10().range());
-                    chart.xAxis.tickFormat(d3.format('.02f'));
-                    chart.yAxis.tickFormat(d3.format('.02f'));
-
-                    var myData = randomData(2, 40);
-                    d3.select('#scatterTest')
-                      .datum(myData)
-                    .attr('height', height)
-                      .call(chart);
-
-                    nv.utils.windowResize(chart.update);
-
-                    return chart;
-                });
                 var fileTypeData = [
 					{{#each fileTypeData}}
                         {file: "{{file}}",
@@ -223,30 +204,61 @@
                         },
 					{{/each}}
 				];
-                //console.log(fileTypeData);
-                function randomData(groups, points) {
-                    var data = [],
-                        shapes = ['circle'],
-                        requests = ['POST', 'GET'],
-                        random = d3.random.normal();
-
-                    for (i = 0; i < groups; i++) {
-                        data.push({
-                            key: requests[i],
-                            values: []
-                        });
-                        for (j = 0; j < points; j++) {
-                            data[i].values.push({
-                                x: random()
-                                , y: random()
-                                , size: Math.random()
-                                , shape: (Math.random() > 0.95) ? shapes[j % 6] : "circle"
-                            });
+                var GETCount = [];
+                var POSTCount = [];
+                fileTypeData.forEach(function(x) { 
+                    if(x.requestType == "GET "){
+                        var tmp = GETCount.findIndex(f => f.label == x.file);
+                        if(tmp !== -1){
+                            GETCount[tmp].value += 1;
+                        }else{
+                            GETCount.push({label:x.file, value:1})
+                        }
+                    }else{
+                        var tmp = POSTCount.findIndex(f => f.label == x.file);
+                        if(tmp !== -1){
+                            POSTCount[tmp].value += 1;
+                        }else{
+                            POSTCount.push({label:x.file, value:1})
                         }
                     }
-                    //console.log(data);
-                    return data;
-                }
+                });
+                var doubleBarObj = [];
+                var fileDataTypes = [];
+                doubleBarObj = {key:"POST", values: POSTCount};
+                fileDataTypes.push(doubleBarObj);
+                doubleBarObj = {key:"GET", values: GETCount};
+                fileDataTypes.push(doubleBarObj);
+                console.log(fileDataTypes);
+                
+                var chart;
+                nv.addGraph(function() {
+                    chart = nv.models.multiBarHorizontalChart()
+                        .x(function(d) { return d.label })
+                        .y(function(d) { return d.value })
+                        .yErr(function(d) { return [-Math.abs(d.value * Math.random() * 0.3), Math.abs(d.value * Math.random() * 0.3)] })
+                        .barColor(d3.scale.category20().range())
+                        .duration(250)
+                        .margin({left: 100})
+                        .stacked(true);
+
+                    chart.yAxis.tickFormat(d3.format(',.2f'));
+
+                    chart.yAxis.axisLabel('Number of Requests');
+                    chart.xAxis.axisLabel('File Types').axisLabelDistance(20);
+
+                    d3.select('#scatterTest')
+                        .datum(fileDataTypes)
+                        .call(chart);
+
+                    nv.utils.windowResize(chart.update);
+
+                    chart.dispatch.on('stateChange', function(e) { nv.log('New State:', JSON.stringify(e)); });
+                    chart.state.dispatch.on('change', function(state){
+                        nv.log('state', JSON.stringify(state));
+                    });
+                    return chart;
+                });
             </script>
 		</div>
 	</div>
