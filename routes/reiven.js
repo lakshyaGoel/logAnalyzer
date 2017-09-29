@@ -83,7 +83,10 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
 
             // data parsing for barChart
             var hr =data[i]["Time"].format("H");
+            //console.log(data[i]["Time"]);
+            //console.log(hr);
             var sz =data[i]["Size"];
+            //console.log(sz);
             aMap[hr]= aMap[hr]+sz;
 
         }
