@@ -9,6 +9,7 @@ Please fill out all of the following sections to help us grade your submission:
 
 ## Name of App: x
 
+Log Analyser
 
 ## Name of Team: x
 val=n;
@@ -49,7 +50,7 @@ Please do not document required libraries (e.g., Express, Bulma).**
 
 - [jquery3.2.1](https://jquery.com/): parsing dom, form processing
 - [d3.js](https://d3js.org/): to using nv.d3
-- [nv.d3](http://nvd3.org/): generating graph, chart
+- [nv.d3.js](http://nvd3.org/): generating graph, chart
 - [moment.js](https://momentjs.com/): parsing time much easier than js default Date() class.
 - [multer](https://github.com/expressjs/multer): sending data from client to sever
 - [request](https://www.npmjs.com/package/request): controlling http?. Maybe default to express. But to prevent plagiarism, I write that
