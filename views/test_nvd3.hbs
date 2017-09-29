@@ -45,29 +45,53 @@
 				<svg id="sizeChart" class="barChart"></svg>
 
 			<script>
-			var multiBarHorizontalData={ "values": [{
-					key:"Day",
-					color:"#67777",
-					values:[
-						{{#each barChartData1}}
-							{label: "{{key}}", value:{{value}}
-							},
-						{{/each}}
-					]
-				},
-				{
-					key:"Night",
-					color:"#46994",
-					values:[
-						{{#each barChartData2}}
-							{label: "{{key}}", value:{{value}}
-							},
-						{{/each}}
-					]
-				}] };
+
+			var multiBarHorizontalData=[
+			{
+				key:"Day",
+				color:"Red",
+				values:[
+					{{#each barChartData1}}
+						{label: "{{key}}", value:{{value}}
+						},
+					{{/each}}
+				]
+			},
+			{
+				key:"Night",
+				color:"Yellow",
+				values:[
+					{{#each barChartData2}}
+						{label: "{{key}}", value:{{value}}
+						},
+					{{/each}}
+				]
+			}
+		];
+
+				nv.addGraph(function() {
+					var chart = nv.models.multiBarHorizontalChart()
+							.x(function(d) { return d.label })
+							.y(function(d) { return d.value })
+							.margin({top: 30, right: 20, bottom: 50, left: 175})
+							.showValues(true)           //Show bar value next to each bar.
+							.showControls(true);        //Allow user to switch between "Grouped" and "Stacked" mode.
+
+					chart.yAxis
+							.tickFormat(d3.format(',.2f'));
+
+					d3.select('#sizeChart')
+							.datum(multiBarHorizontalData)
+							.call(chart);
+
+					nv.utils.windowResize(chart.update);
+
+					return chart;
+				});
+
 			</script>
 		</div>
-	</div>
+		</div>
 	<div class="columns">
 		<div class="column third-column">
 			<h2>line graph</h2>

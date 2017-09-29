@@ -38,7 +38,7 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
         var fileTypeData = [];
         var barChartData1 = [];
         var barChartData2 = [];
-        var aMap = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        var aMap = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
         var i;
         var type
@@ -82,7 +82,7 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
             // data parsing for lineChart
 
             // data parsing for barChart
-            var hr =data[i]["Time"].hours();
+            var hr =data[i]["Time"].format("H");
             var sz =data[i]["Size"];
             aMap[hr]= aMap[hr]+sz;
 
@@ -99,7 +99,7 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
         }
         for(i = 12; i <=23; i++){
             barChartData2.push({
-                  "key": i, "value": aMap[i]
+                  "key": i-12, "value": aMap[i]
               });
         }
 
