@@ -61,10 +61,14 @@
         $(".switch-table").on("click", function(){
             $(".graph").css({"display": "none"});
             $(".table").css({"display": "block"}).fadeIn(200);
+            $(this).parent().addClass("is-active");
+            $(".switch-graph").parent().removeClass("is-active");
         });
         $(".switch-graph").on("click", function(){
             $(".table").css({"display": "none"});
             $(".graph").css({"display": "block"}).fadeIn(200);
+            $(this).parent().addClass("is-active");
+            $(".switch-table").parent().removeClass("is-active");
         });
     });
 
