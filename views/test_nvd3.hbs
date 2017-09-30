@@ -274,8 +274,8 @@
 	<!-- table area -->
 	<div class="table">
 		<script>
-			function tableMod(query){
-				$(query).each(function () {
+			$(function(){
+				$("#piTable").each(function () {
 					var pre_element = null;
 					var col_num = 0;
 					$(this).find('tr').each(function () {
@@ -291,19 +291,32 @@
 						}
 					});
 				});
+			});
 
-			}
+
 		</script>
 		<div class="columns">
 			<div class="column first-column">
 				<h2>Browser Table</h2>
 				<div class="">
-					<table class="table is-bordered is-striped is-narrow is-fullwidth">
-						<tbody>
+					<table class="table is-bordered is-striped is-narrow is-fullwidth" id="piTable">
+						<thead>
 						<tr>
-							<td></td>
-							<td></td>
+							<th>OS</th>
+							<th>Browser</th>
+							<th>Amount</th>
+							<th>Rate</th>
 						</tr>
+						</thead>
+						<tbody>
+							{{#each piTableData}}
+								<tr>
+								<th>{{OS}}</th>
+								<td>{{browser}}</td>
+								<td>{{amount}}</td>
+								<td>{{rate}}</td>
+								</tr>
+							{{/each}}
 						</tbody>
 					</table>
 				</div>

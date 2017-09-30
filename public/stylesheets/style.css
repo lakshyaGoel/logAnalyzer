@@ -28,12 +28,12 @@ a {
 #test-nvd3 .column {
   height: 500px; }
 #test-nvd3 .first-column {
-  background-color: #F44336; }
+  background-color: #f4f4f4; }
 #test-nvd3 .second-column {
-  background-color: #9C27B0; }
+  background-color: #dcd0c0; }
 #test-nvd3 .third-column {
-  background-color: #3F51B5; }
+  background-color: #dcd0c0; }
 #test-nvd3 .fourth-column {
-  background-color: #009688; }
+  background-color: #f4f4f4; }
 
 /*# sourceMappingURL=style.css.map */

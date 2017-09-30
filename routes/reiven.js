@@ -36,6 +36,7 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
         var UA = {};
         var piChartData = [];
         var piTableTemp = {};
+        var itemcount = 0;
         var piTableData = [];
         var fileTypeData = [];
         var barChartData1 = [];
@@ -54,7 +55,7 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
             var appendData = uaData["browser"]["name"] + " on ";
             var appendTableData = "";
             if(os == "Windows"){
-                appendData += os;
+                appendData += os+ uaData["os"]["version"];
                 appendTableData += os + uaData["os"]["version"];
             }
             else if(os == "Mac OS" || os == "Android" || os == "iOS" || os == "Linux"){
@@ -65,16 +66,12 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
                 appendTableData += os;
             }
             appendTableData += "/" +  uaData["browser"]["name"];
-            if(!Object.keys(piTableTemp).indexOf(appendTableData)){
-                piTableTemp[appendTableData] = 1;
-            }else{
-                piTableTemp[appendTableData] += 1;
+            if(piTableTemp[appendTableData] == undefined){
+                piTableTemp[appendTableData] = 0;
             }
+            itemcount += 1;
+            piTableTemp[appendTableData] += 1;
 
-            if(uaData["browser"]["name"] == undefined){
-                //console.log("browser",typeof(uaData["browser"]["name"]));
-                appendData = uaData["browser"]["name"];
-            }
 
             if(Object.keys(UA).indexOf(appendData) >= 0){
                 UA[appendData] += 1;
@@ -111,6 +108,27 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
         }
 
         // piChart data parsing
+        for(i = 0; i < Object.keys(piTableTemp).length; i++){
+            var key = Object.keys(piTableTemp)[i].split("/");
+            var appendData = {
+                "OS": key[0],
+                "browser": key[1],
+                "amount":piTableTemp[Object.keys(piTableTemp)[i]],
+                "rate": Math.round(piTableTemp[Object.keys(piTableTemp)[i]] / itemcount * 100, 1) + " %"
+            };
+            piTableData.push(appendData);
+        }
+        piTableData = piTableData.sort(function(a, b){
+            var aOS = a.OS.toUpperCase();
+            var bOS = b.OS.toUpperCase();
+            var comparison = 0;
+            if(aOS > bOS){
+                comparison = -1;
+            }else if(aOS < bOS){
+                comparison = 1;
+            }
+            return comparison;
+        });
 
 
 
@@ -125,8 +143,8 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
                   "key": i-12, "value": aMap[i]
               });
         }
-
-        res.render('test_nvd3', {title: 'NVD3 test', piChartData: piChartData, fileTypeData: fileTypeData, barChartData1:barChartData1, barChartData2:barChartData2});
+console.log(piTableData);
+        res.render('test_nvd3', {title: 'NVD3 test', piChartData: piChartData,piTableData: piTableData, fileTypeData: fileTypeData, barChartData1:barChartData1, barChartData2:barChartData2});
     });// end functions.parseServerLog;
 });
 
