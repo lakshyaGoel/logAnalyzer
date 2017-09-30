@@ -130,7 +130,7 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
 
 
 
-        // BEGIN: barchart data parting(Vaybhav)?
+        // BEGIN: barchart data parting(Nishka)?
         for(i = 0; i <12; i++){
             barChartData1.push({
                   "key": i, "value": aMap[i]
@@ -141,9 +141,43 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
                   "key": i-12, "value": aMap[i]
               });
         }
+        // END: barchart data parting(Nishka)?
+
+        // BEGIN: barchart data parting(Vaybhav)?
+        var map={};
+        for(i = 0; i < data.length; i++){
+            console.log(data[i]);
+
+            // data parsing for piChart
+            var t=data[i]["Time"].format("k");
+            if(!(t in map))
+                map[t]=1;
+            else{
+                console.log("console check");
+                var ctime=map[t];
+                map[t]=ctime+1;
+            }
+            
+        }
+        //console.log(map);
+        var keys = Object.keys(map);
+        var i = 0;
+        var barchartdata=[];
+        var barcharttup={};
+        var lineChartData = [];
+        for(i = 0; i < keys.length; i++){
+            var appendData = {};
+            appendData["label"] = keys[i];
+            appendData["value"] = map[keys[i]];
+            lineChartData.push(appendData);
+        }
+        barcharttup["key"]="Cumulative Return";
+        barcharttup["values"]=lineChartData;
+        barchartdata.push(barcharttup);
+        //console.log(lineChartData);
+        console.log(lineChartData);
+
         // END: barchart data parting(Vaybhav)?
-
-
 
         // send data to /view/test_nvd3.hbs
         res.render('test_nvd3',
@@ -153,7 +187,8 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
                 piTableData: piTableData,
                 fileTypeData: fileTypeData,
                 barChartData1:barChartData1,
-                barChartData2:barChartData2
+                barChartData2:barChartData2,
+                bardata:lineChartData,
             }
          );// end res.render
     });// end functions.parseServerLog;
