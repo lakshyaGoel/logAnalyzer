@@ -6,15 +6,13 @@ a {
 
 #wrap {
   background-color: #FAFAFA; }
-  #wrap main {
-    height: 100%; }
-    #wrap main .main-content {
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center; }
-      #wrap main .main-content #form {
-        width: 80%; }
+  #wrap main .main-content {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    #wrap main .main-content #form {
+      width: 80%; }
 
 .fade-in {
   opacity: 0;
@@ -27,6 +25,8 @@ a {
 @keyframes fadeIn {
   100% {
     opacity: 1; } }
+#test-nvd3 .column {
+  height: 500px; }
 #test-nvd3 .first-column {
   background-color: #F44336; }
 #test-nvd3 .second-column {

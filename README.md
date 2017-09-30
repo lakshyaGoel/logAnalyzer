@@ -57,6 +57,7 @@ Please do not document required libraries (e.g., Express, Bulma).**
 - [ua-parser-js](https://github.com/faisalman/ua-parser-js): parsing user agent easily
 - [Sass](http://sass-lang.com/): css preprocessor
 - [Ruby](https://www.ruby-lang.org/en/): to use Sass
+- [jquery flip](http://nnattawat.github.io/flip/): to add flip animation
 
 **If there's anything else you would like to disclose about how your project
 relied on external code, expertise, or anything else, please disclose that
