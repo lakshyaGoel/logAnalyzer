@@ -12,6 +12,7 @@
 	<div class="graph">
 	<div class="columns">
 		<div class="column first-column">
+			{{! Aki's part }}
 			<h2>Browser and OS Pie chart</h2>
 			<svg id="test1" class="mypiechart"></svg>
 			<script>
@@ -48,6 +49,7 @@
 			</script>
 		</div>
 		<div class="column second-column">
+			{{! Nishka's part }}
 			<h2>Size chart</h2>
 
 				<svg id="sizeChart" class="barChart"></svg>
@@ -102,6 +104,7 @@
 		</div>
 	<div class="columns">
 		<div class="column third-column">
+			{{! Vaybhav's part }}
 			<h2>line graph</h2>
 			<div id="line-chart"></div>
 
@@ -202,6 +205,7 @@
 
 		</div>
 		<div class="column fourth-column">
+			{{! Lakshya's part }}
             <svg id="scatterTest" class="with-3d-shadow with-transitions"></svg>
             <script>
                 var fileTypeData = [
@@ -273,30 +277,29 @@
 	</div>
 	<!-- table area -->
 	<div class="table">
-		<script>
-			$(function(){
-				$("#piTable").each(function () {
-					var pre_element = null;
-					var col_num = 0;
-					$(this).find('tr').each(function () {
-						var now_th = $(this).find('th').eq( col_num );
-						if (pre_element == null) {
-							pre_element = now_th;
-						} else if (now_th.text() == pre_element.text()) {
-							now_th.remove();
-							if (pre_element.attr('rowspan') == null) pre_element.attr('rowspan', 1);
-							pre_element.attr('rowspan', parseInt(pre_element.attr('rowspan'),10) + 1);
-						} else {
-							pre_element = now_th;
-						}
-					});
-				});
-			});
-
-
-		</script>
 		<div class="columns">
 			<div class="column first-column">
+				{{! Aki's part}}
+				<script>
+					$(function(){
+						$("#piTable").each(function () {
+							var pre_element = null;
+							var col_num = 0;
+							$(this).find('tr').each(function () {
+								var now_th = $(this).find('th').eq( col_num );
+								if (pre_element == null) {
+									pre_element = now_th;
+								} else if (now_th.text() == pre_element.text()) {
+									now_th.remove();
+									if (pre_element.attr('rowspan') == null) pre_element.attr('rowspan', 1);
+									pre_element.attr('rowspan', parseInt(pre_element.attr('rowspan'),10) + 1);
+								} else {
+									pre_element = now_th;
+								}
+							});
+						});
+					});
+				</script>
 				<h2>Browser Table</h2>
 				<div class="">
 					<table class="table is-bordered is-striped is-narrow is-fullwidth" id="piTable">
@@ -324,18 +327,19 @@
 <!-- Aki zone -->
 			</div>
 			<div class="column second-column">
+				{{! Nishka's part }}
 				<h2>Size chart</h2>
 
 			</div>
 		</div>
 		<div class="columns">
 			<div class="column third-column">
-
+				{{! Vaybhav's part }}
 
 
 			</div>
 			<div class="column fourth-column">
-
+				{{! Lakshya's part }}
 			</div>
 		</div>
 	</div>
