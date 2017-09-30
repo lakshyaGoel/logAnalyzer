@@ -16,20 +16,11 @@ router.get('/', function (req, res, next) {
 
 
 router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
-    // TODO: make json from test data and send it.
-    /**
-     * 4. chart it in embed script tags first to test.
-     *      - bar chart
-     *      - line graph
-     */
-
     var functions = require("../functions");
 
     if (!req.file) {
         res.status(500).send('error: no file');
     }
-
-    // console.log(req.file.buffer.toString('UTF-8'));
 
     functions.parseServerLog(req.file.buffer.toString('UTF-8') ,function(data){
         // console.log("This is callback(~= inside) functions.parseServerLog", data);
@@ -44,12 +35,12 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
         var aMap = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
         var i;
-        var type
+        var type;
 
         for(i = 0; i < data.length; i++){
             //console.log(data[i]);
 
-            // data parsing for piChart
+            // BEGIN: data parsing for piChart and piTable(Aki)
             var uaData = uaParser(data[i]["UA"]);
             var os = uaData["os"]["name"];
             var appendData = uaData["browser"]["name"] + " on ";
@@ -71,15 +62,16 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
             }
             itemcount += 1;
             piTableTemp[appendTableData] += 1;
-
-
             if(Object.keys(UA).indexOf(appendData) >= 0){
                 UA[appendData] += 1;
             }else{
                 UA[appendData] = 1;
             }
+            // END: data parsing for piChart and piTable(Aki)
 
-            //data for parsing the file types for chart
+
+
+            // BEGIN: data for parsing the file types for chart(Lakshya)
             var http = data[i]["HTTP"];
             http = http.split('/');
             var ftype = ((http[http.length - 2]).split(" "))[0];
@@ -91,22 +83,27 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
                 "requestType": http[0],
                 "status": data[i]["Status"]
             });
-            // data parsing for lineChart
+            // END: data for parsing the file types for chart(Lakshya)
 
-            // data parsing for barChart
+
+
+            // BEGIN: data parsing for barChart(Nishka)
             var hr =data[i]["Time"].format("H");
             var sz =data[i]["Size"];
             if(isNaN(sz))
               sz=0;
             aMap[hr]= aMap[hr]+sz;
+            // END: data parsing for barChart(Nishka)
+        }// end for(i = 0; i < data.length; i++)
 
-        }
+
+
+        // BEGIN: data parsing for piChart and piTable part 2(Aki)
         for(i = 0; i < Object.keys(UA).length; i++){
             piChartData.push({
                 "key": Object.keys(UA)[i], "value": UA[Object.keys(UA)[i]]
             });
         }
-
         // piChart data parsing
         for(i = 0; i < Object.keys(piTableTemp).length; i++){
             var key = Object.keys(piTableTemp)[i].split("/");
@@ -129,10 +126,11 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
             }
             return comparison;
         });
+        // END: data parsing for piChart and piTable part 2(Aki)
 
 
 
-        // barchart data parting
+        // BEGIN: barchart data parting(Vaybhav)?
         for(i = 0; i <12; i++){
             barChartData1.push({
                   "key": i, "value": aMap[i]
@@ -143,8 +141,21 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
                   "key": i-12, "value": aMap[i]
               });
         }
-console.log(piTableData);
-        res.render('test_nvd3', {title: 'NVD3 test', piChartData: piChartData,piTableData: piTableData, fileTypeData: fileTypeData, barChartData1:barChartData1, barChartData2:barChartData2});
+        // END: barchart data parting(Vaybhav)?
+
+
+
+        // send data to /view/test_nvd3.hbs
+        res.render('test_nvd3',
+            {
+                title: 'NVD3 test',
+                piChartData: piChartData,
+                piTableData: piTableData,
+                fileTypeData: fileTypeData,
+                barChartData1:barChartData1,
+                barChartData2:barChartData2
+            }
+         );// end res.render
     });// end functions.parseServerLog;
 });
 
