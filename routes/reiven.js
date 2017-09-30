@@ -35,6 +35,9 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
         // console.log("This is callback(~= inside) functions.parseServerLog", data);
         var UA = {};
         var piChartData = [];
+        var piTableTemp = {};
+        var itemcount = 0;
+        var piTableData = [];
         var fileTypeData = [];
         var barChartData1 = [];
         var barChartData2 = [];
@@ -50,16 +53,25 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
             var uaData = uaParser(data[i]["UA"]);
             var os = uaData["os"]["name"];
             var appendData = uaData["browser"]["name"] + " on ";
-            if(os == "Windows" ||os == "Mac OS" || os == "Android" || os == "iOS" || os == "Linux"){
+            var appendTableData = "";
+            if(os == "Windows"){
+                appendData += os+ uaData["os"]["version"];
+                appendTableData += os + uaData["os"]["version"];
+            }
+            else if(os == "Mac OS" || os == "Android" || os == "iOS" || os == "Linux"){
                 appendData += os;
+                appendTableData += os;
             }else{
                 appendData += "Other";
+                appendTableData += os;
             }
+            appendTableData += "/" +  uaData["browser"]["name"];
+            if(piTableTemp[appendTableData] == undefined){
+                piTableTemp[appendTableData] = 0;
+            }
+            itemcount += 1;
+            piTableTemp[appendTableData] += 1;
 
-            if(uaData["browser"]["name"] == undefined){
-                //console.log("browser",typeof(uaData["browser"]["name"]));
-                appendData = uaData["browser"]["name"];
-            }
 
             if(Object.keys(UA).indexOf(appendData) >= 0){
                 UA[appendData] += 1;
@@ -93,7 +105,34 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
             piChartData.push({
                 "key": Object.keys(UA)[i], "value": UA[Object.keys(UA)[i]]
             });
-          }
+        }
+
+        // piChart data parsing
+        for(i = 0; i < Object.keys(piTableTemp).length; i++){
+            var key = Object.keys(piTableTemp)[i].split("/");
+            var appendData = {
+                "OS": key[0],
+                "browser": key[1],
+                "amount":piTableTemp[Object.keys(piTableTemp)[i]],
+                "rate": Math.round(piTableTemp[Object.keys(piTableTemp)[i]] / itemcount * 100, 1) + " %"
+            };
+            piTableData.push(appendData);
+        }
+        piTableData = piTableData.sort(function(a, b){
+            var aOS = a.OS.toUpperCase();
+            var bOS = b.OS.toUpperCase();
+            var comparison = 0;
+            if(aOS > bOS){
+                comparison = -1;
+            }else if(aOS < bOS){
+                comparison = 1;
+            }
+            return comparison;
+        });
+
+
+
+        // barchart data parting
         for(i = 0; i <12; i++){
             barChartData1.push({
                   "key": i, "value": aMap[i]
@@ -104,8 +143,8 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
                   "key": i-12, "value": aMap[i]
               });
         }
-
-        res.render('test_nvd3', {title: 'NVD3 test', piChartData: piChartData, fileTypeData: fileTypeData, barChartData1:barChartData1, barChartData2:barChartData2});
+console.log(piTableData);
+        res.render('test_nvd3', {title: 'NVD3 test', piChartData: piChartData,piTableData: piTableData, fileTypeData: fileTypeData, barChartData1:barChartData1, barChartData2:barChartData2});
     });// end functions.parseServerLog;
 });
 
