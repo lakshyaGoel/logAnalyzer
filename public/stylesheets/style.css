@@ -13,6 +13,9 @@ a {
     align-items: center; }
     #wrap main .main-content #form {
       width: 80%; }
+  #wrap main .column-main {
+    height: 100%;
+    overflow-y: scroll; }
 
 .fade-in {
   opacity: 0;
