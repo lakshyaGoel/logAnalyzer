@@ -9,7 +9,6 @@ a {
 #wrap{
   background-color: #FAFAFA;
   main{
-    height:100%;
     .main-content{
       height:100%;
       display:flex;
@@ -45,6 +44,9 @@ $third: #3F51B5;
 $fourth: #009688;
 
 #test-nvd3{
+  .column{
+    height:500px;
+  }
   .first-column{
     background-color: $first;
   }

@@ -25,46 +25,28 @@
         }
     }
 
-
-    $('#theLogField').change(function () {
-        console.log('picked file', $('#theLogField')[0].files[0]);
-    });
-
-
-    $('#theAjaxButton').click(function (e) {
-        // how to select the file itself
-        var f = $('#theLogField')[0].files[0];
-        if (!f) {
-            alert('pick a file');
-            return;
-        }
-        // create the
-        var fd = new FormData();
-        fd.append('ajaxfile', f);
-        $.ajax({
-            url: '/upload-file-ajax'
-            , data: fd
-            , processData: false
-            , contentType: false
-            , type: 'POST'
-            , success: function (data) {
-                console.log('data', data);
-                $('#lg').html(JSON.stringify(data.fileContent));
-            }
-        });
-    });
-
     // tab switch operation
     $(function(){
-        $(".table").css({"display": "none"});
+        $("#card").flip({
+            trigger: 'manual',
+            front: ".graph",
+            back: ".table"
+        });
+        // $(".table").css({"display": "none"});
 
         $(".switch-table").on("click", function(){
-            $(".graph").css({"display": "none"});
-            $(".table").css({"display": "block"}).fadeIn(200);
+            // $(".graph").css({"display": "none"});
+            // $(".table").css({"display": "block"}).fadeIn(200);
+            $("#card").flip(true);
+            $(this).parent().addClass("is-active");
+            $(".switch-graph").parent().removeClass("is-active");
         });
         $(".switch-graph").on("click", function(){
-            $(".table").css({"display": "none"});
-            $(".graph").css({"display": "block"}).fadeIn(200);
+            // $(".table").css({"display": "none"});
+            // $(".graph").css({"display": "block"}).fadeIn(200);
+            $("#card").flip(false);
+            $(this).parent().addClass("is-active");
+            $(".switch-table").parent().removeClass("is-active");
         });
     });
 
