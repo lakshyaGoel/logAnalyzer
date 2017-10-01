@@ -107,17 +107,17 @@
 			{{! Vaybhav's part }}
 			<h2>bar graph</h2>
 			<div id="bar-chart">
-			<svg id="barGraph"></svg>	
-			
+			<svg id="barGraph"></svg>
+
 				<script>
-					
+
 					var historicalBarChart=[
 						{
 							key : "Cumulative Return",
 							values:[
 								{{#each bardata}}
-									{ 
-										label: "{{label}}", 
+									{
+										label: "{{label}}",
 										value:"{{value}}"
 									},
 								{{/each}}
@@ -125,7 +125,7 @@
 						}
 					];
 					console.log(historicalBarChart);
-					debugger;
+
 					nv.addGraph(function() {
 			        var chart = nv.models.discreteBarChart()
 			            .x(function(d) { return d.label+":00" })
@@ -143,7 +143,7 @@
 				        nv.utils.windowResize(chart.update);
 				        return chart;
 				    });
-				   
+
 				</script>
 				</div>
 			</div>
@@ -161,7 +161,7 @@
 				];
                 var GETCount = [];
                 var POSTCount = [];
-                fileTypeData.forEach(function(x) { 
+                fileTypeData.forEach(function(x) {
                     if(x.requestType == "GET "){
                         var tmp = GETCount.findIndex(f => f.label == x.file);
                         if(tmp !== -1){
@@ -185,7 +185,7 @@
                 doubleBarObj = {key:"GET", values: GETCount};
                 fileDataTypes.push(doubleBarObj);
                 console.log(fileDataTypes);
-                
+
                 var chart;
                 nv.addGraph(function() {
                     chart = nv.models.multiBarHorizontalChart()
@@ -273,42 +273,55 @@
 				{{! Nishka's part }}
 				<h2>Size chart</h2>
 				<div class="column-main">
-				<table class="table is-bordered is-striped is-narrow is-fullwidth">
-					<thead>
-					<tr>
-						<th>This</th>
-						<th>Is</th>
-						<th>Example</th>
-						<th>Table</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr>
-						<td>Max</td>
-						<td>Harper</td>
-						<td>Is</td>
-						<td>Great!</td>
-					</tr>
-					<tr>
-						<td>Max</td>
-						<td>Harper</td>
-						<td>Is</td>
-						<td>Great!</td>
-					</tr>
-					<tr>
-						<td>Max</td>
-						<td>Harper</td>
-						<td>Is</td>
-						<td>Great!</td>
-					</tr>
-					<tr>
-						<td>Max</td>
-						<td>Harper</td>
-						<td>Is</td>
-						<td>Great!</td>
-					</tr>
-					</tbody>
-				</table>
+					<script>
+						$(function(){
+							$("#sizeTable").each(function () {
+								var pre_element = null;
+								var col_num = 0;
+								$(this).find('tr').each(function () {
+									var now_th = $(this).find('th').eq( col_num );
+									if (pre_element == null) {
+										pre_element = n;ow_th;
+									} else if (now_th.text() == pre_element.text()) {
+										now_th.remove();
+										if (pre_element.attr('rowspan') == null) pre_element.attr('rowspan', 1);
+										pre_element.attr('rowspan', parseInt(pre_element.attr('rowspan'),10) + 1);
+									} else {
+										pre_element = now_th;
+									}
+								});
+							});
+						});
+					</script>
+					<h2>Size Table</h2>
+					<div class="column-main">
+						<table class="table is-bordered is-striped is-narrow is-fullwidth" id="sizeTable">
+							<thead>
+
+							<tr>
+								<th>Time</th>
+								<th>Size</th>
+
+							</tr>
+							</thead>
+							<tbody>
+								{{#each barChartData1}}
+
+									<tr>
+									<th>{{key}}:00</th>
+									<td>{{value}}</td>
+									</tr>
+								{{/each}}
+								{{#each barChartData2}}
+									<tr>
+									<th>{{key}}:00</th>
+									<td>{{value}}</td>
+									</tr>
+								{{/each}}
+							</tbody>
+						</table>
+					</div>
+
 				</div>
 			</div>
 		</div>
@@ -583,5 +596,23 @@
 			</div>
 		</div>
 	</div>
+	</div>
+	<div id="prediction">
+		<script>
+			var res =[{{result}}];
+			console.log(res);
+			function drawResult()
+			{
+					var x = document.getElementById('x').value;
+					document.getElementById("y").value = res[0]*Math.pow(x,3)+res[1]*Math.pow(x,2)+res[2]*Math.pow(x,1)+res[3];
+			}
+
+
+		</script>
+		<div>
+			Time<input type="text" id ="x"/>
+			Hits<input id="y" readonly/>
+			<input type="button" id="btnrefresh" value="Refresh" onclick="drawResult();" />
+		</div>
 	</div>
 </main>
