@@ -231,7 +231,7 @@
 							$(this).find('tr').each(function () {
 								var now_th = $(this).find('th').eq( col_num );
 								if (pre_element == null) {
-									pre_element = now_th;
+									pre_element = n;ow_th;
 								} else if (now_th.text() == pre_element.text()) {
 									now_th.remove();
 									if (pre_element.attr('rowspan') == null) pre_element.attr('rowspan', 1);
@@ -315,37 +315,42 @@
 		<div class="columns">
 			<div class="column third-column">
 				{{! Vaybhav's part }}
+				<script>
+					$(function(){
+						$("#piTable").each(function () {
+							var pre_element = null;
+							var col_num = 0;
+							$(this).find('tr').each(function () {
+								var now_th = $(this).find('th').eq( col_num );
+								if (pre_element == null) {
+									pre_element = n;ow_th;
+								} else if (now_th.text() == pre_element.text()) {
+									now_th.remove();
+									if (pre_element.attr('rowspan') == null) pre_element.attr('rowspan', 1);
+									pre_element.attr('rowspan', parseInt(pre_element.attr('rowspan'),10) + 1);
+								} else {
+									pre_element = now_th;
+								}
+							});
+						});
+					});
+				</script>
+				<h2>Browser Table</h2>
 				<div class="column-main">
-					<table class="table is-bordered is-striped is-narrow is-fullwidth">
+					<table class="table is-bordered is-striped is-narrow is-fullwidth" id="piTable">
 						<thead>
 						<tr>
-							<th>This</th>
-							<th>Is</th>
-							<th>The other Example</th>
-
+							<th>Time</th>
+							<th>Hits</th>
 						</tr>
 						</thead>
 						<tbody>
-						<tr>
-							<td>We</td>
-							<td>Love</td>
-							<td>Harper</td>
-						</tr>
-						<tr>
-							<td>We</td>
-							<td>Love</td>
-							<td>Harper</td>
-						</tr>
-						<tr>
-							<td>We</td>
-							<td>Love</td>
-							<td>Harper</td>
-						</tr>
-						<tr>
-							<td>We</td>
-							<td>Love</td>
-							<td>Harper</td>
-						</tr>
+							{{#each bardata}}
+								<tr>
+								<th>{{label}}:00</th>
+								<td>{{value}}</td>
+								</tr>
+							{{/each}}
 						</tbody>
 					</table>
 				</div>
