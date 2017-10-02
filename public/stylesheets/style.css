@@ -39,4 +39,22 @@ a {
 #test-nvd3 .fourth-column {
   background-color: #f4f4f4; }
 
+#scatterTable table {
+  font-family: "Helvetica", "Lucida Sans", "Lucida Sans Unicode", "Luxi Sans", Tahoma, sans-serif;
+  box-shadow: 1px 1px 10px rgba(0,0,0,0.5);
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+#scatterTable table {
+  margin: auto;
+}
+#scatterTable table, td, th {
+  padding: 7px;
+  text-align: center;
+  border: 1px solid rgb(8,48,107);
+}
+#scatterTable th {
+  background-color: rgb(8,81,156);
+  color: white;
+}
 /*# sourceMappingURL=style.css.map */

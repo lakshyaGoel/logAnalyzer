@@ -49,5 +49,48 @@
             $(".switch-table").parent().removeClass("is-active");
         });
     });
-
+    window.fileTypeDataFunc = function (fileTypeDataUnMapped) {
+        var GETCount = [];
+        var POSTCount = [];
+        fileTypeDataUnMapped.forEach(function (x) {
+            if (x.requestType == "GET ") {
+                var tmp = GETCount.findIndex(f => f.label == x.file);
+                if (tmp !== -1) {
+                    GETCount[tmp].value += 1;
+                }
+                else {
+                    GETCount.push({
+                        label: x.file
+                        , value: 1
+                    })
+                }
+            }
+            else {
+                var tmp = POSTCount.findIndex(f => f.label == x.file);
+                if (tmp !== -1) {
+                    POSTCount[tmp].value += 1;
+                }
+                else {
+                    POSTCount.push({
+                        label: x.file
+                        , value: 1
+                    })
+                }
+            }
+        });
+        var doubleBarObj = [];
+        var fileDataTypes = [];
+        doubleBarObj = {
+            key: "POST"
+            , values: POSTCount
+        };
+        fileDataTypes.push(doubleBarObj);
+        doubleBarObj = {
+            key: "GET"
+            , values: GETCount
+        };
+        fileDataTypes.push(doubleBarObj);
+        
+        return fileDataTypes;
+    }
 })(jQuery);
