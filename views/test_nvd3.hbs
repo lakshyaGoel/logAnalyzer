@@ -196,48 +196,28 @@
 		<div class="columns">
 			<div class="column first-column">
 				{{! Aki's part}}
-				<script>
-					$(function(){
-						$("#piTable").each(function () {
-							var pre_element = null;
-							var col_num = 0;
-							$(this).find('tr').each(function () {
-								var now_th = $(this).find('th').eq( col_num );
-								if (pre_element == null) {
-									pre_element = now_th;
-								} else if (now_th.text() == pre_element.text()) {
-									now_th.remove();
-									if (pre_element.attr('rowspan') == null) pre_element.attr('rowspan', 1);
-									pre_element.attr('rowspan', parseInt(pre_element.attr('rowspan'),10) + 1);
-								} else {
-									pre_element = now_th;
-								}
-							});
-						});
-					});
-				</script>
 				<h2>Browser Table</h2>
-				<div class="column-main">
-					<table class="table is-bordered is-striped is-narrow is-fullwidth" id="piTable">
-						<thead>
-						<tr>
-							<th>OS</th>
-							<th>Browser</th>
-							<th>Amount</th>
-							<th>Rate</th>
-						</tr>
-						</thead>
-						<tbody>
+				<div>
+					<table id="piTable2"></table>
+					<script>
+						var piTableValues=[
 							{{#each piTableData}}
-								<tr>
-								<th>{{OS}}</th>
-								<td>{{browser}}</td>
-								<td>{{amount}}</td>
-								<td>{{rate}}</td>
-								</tr>
+								{
+									"OS": "{{OS}}",
+									"Browser": "{{browser}}",
+									"Amount": "{{amount}}",
+									"Rate": "{{rate}}"
+								},
 							{{/each}}
-						</tbody>
-					</table>
+						];
+
+
+
+						d3.select("#piTable2").selectAll("table")
+										.data([piTableValues])
+										.enter().append("table")
+										.call(recurse);
+					</script>
 				</div>
 
 <!-- Aki zone -->
