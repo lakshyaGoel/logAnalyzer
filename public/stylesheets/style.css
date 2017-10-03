@@ -29,15 +29,9 @@ a {
   100% {
     opacity: 1; } }
 #test-nvd3 .column {
-  height: 500px; }
-#test-nvd3 .first-column {
-  background-color: #f4f4f4; }
-#test-nvd3 .second-column {
-  background-color: #dcd0c0; }
-#test-nvd3 .third-column {
-  background-color: #dcd0c0; }
-#test-nvd3 .fourth-column {
-  background-color: #f4f4f4; }
+  height: 500px; 
+  background-color: #FAFAFA;}
+
 
 #scatterTable table {
   font-family: "Helvetica", "Lucida Sans", "Lucida Sans Unicode", "Luxi Sans", Tahoma, sans-serif;
