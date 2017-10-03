@@ -1,11 +1,9 @@
-
-
-
 <main id="test-nvd3">
 	<div class="tabs is-large">
 		<ul>
 			<li class="is-active"><a class="switch-graph">Graph</a></li>
 			<li><a class="switch-table">Table</a></li>
+            <li><a class="switch-predict">Prediction</a></li>
 		</ul>
 	</div>
 	<div id="card">
@@ -277,7 +275,7 @@
 
 				</div>
 			</div>
-		</div>
+		
 		<div class="columns">
 			<div class="column third-column">
 				{{! Vaybhav's part }}
@@ -344,20 +342,22 @@
 	</div>
 	</div>
 	<div id="prediction">
-		<script>
-			var res =[{{result}}];
-			function drawResult()
-			{
-					var x = document.getElementById('x').value;
-					document.getElementById("y").value = res[0]*Math.pow(x,3)+res[1]*Math.pow(x,2)+res[2]*Math.pow(x,1)+res[3];
-			}
-
-
-		</script>
-		<div>
-			Time<input type="text" id ="x"/>
-			Hits<input id="y" readonly/>
-			<input type="button" id="btnrefresh" value="Refresh" onclick="drawResult();" />
-		</div>
+       <section class="section">
+           <div class="container is-widescreen">
+               <script>
+                    var res =[{{result}}];
+                    function drawResult()
+                    {
+                            var x = document.getElementById('x').value;
+                            document.getElementById("y").value = res[0]*Math.pow(x,3)+res[1]*Math.pow(x,2)+res[2]*Math.pow(x,1)+res[3];
+                    }
+               </script>
+               <div>
+                    Time<input type="text" id ="x"/>
+                    Hits<input id="y" readonly/>
+                    <input type="button" id="btnrefresh" value="Refresh" onclick="drawResult();" />
+               </div>
+            </div>
+        </section>
 	</div>
 </main>
