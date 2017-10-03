@@ -64,3 +64,82 @@ $fourth: #f4f4f4;
     background-color: $fourth;
   }
 }
+// from Lakshya and friends Update css
+
+#scatterTable table {
+  font-family: "Helvetica", "Lucida Sans", "Lucida Sans Unicode", "Luxi Sans", Tahoma, sans-serif;
+  box-shadow: 1px 1px 10px rgba(0,0,0,0.5);
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+#scatterTable table {
+  margin: auto;
+}
+#scatterTable table, td, th {
+  padding: 7px;
+  text-align: center;
+  border: 1px solid rgb(8,48,107);
+}
+#scatterTable th {
+  background-color: rgb(8,81,156);
+  color: white;
+}
+#sizeTable table {
+  font-family: "Helvetica", "Lucida Sans", "Lucida Sans Unicode", "Luxi Sans", Tahoma, sans-serif;
+  box-shadow: 1px 1px 10px rgba(0,0,0,0.5);
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+#sizeTable table {
+  margin: auto;
+}
+#sizeTable table, td, th {
+  padding: 7px;
+  text-align: center;
+  border: 1px solid rgb(8,48,107);
+}
+#sizeTable th {
+  background-color: rgb(8,81,156);
+  color: white;
+}
+#sizeTable td {
+  background-color: White;
+  color: black;
+  border: 1px solid rgb(8,48,107);
+}
+#fixedFooter {
+  position:fixed;
+  left:0px;
+  bottom:0px;
+  height:40px;
+  width:100%;
+  background:#F5F5F5;
+}
+
+#fixedFooter .container {
+  margin: 15px;
+}
+
+#barDisplayTable table, #piTable2 table {
+  font-family: "Helvetica", "Lucida Sans", "Lucida Sans Unicode", "Luxi Sans", Tahoma, sans-serif;
+  box-shadow: 1px 1px 10px rgba(0,0,0,0.5);
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+#barDisplayTable table, #piTable2 table {
+  margin: auto;
+}
+#piTable2 table, #barDisplayTable table, td, th {
+  padding: 7px;
+  text-align: center;
+  border: 1px solid rgb(8,48,107);
+}
+#piTable2 th , #barDisplayTable th {
+  background-color: rgb(8,81,156);
+  color: white;
+}
+#piTable2 td ,#barDisplayTable td {
+  background-color: White;
+  color: black;
+  border: 1px solid rgb(8,48,107);
+}
