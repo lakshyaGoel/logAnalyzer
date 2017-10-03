@@ -55,27 +55,38 @@
 			<script>
 
 			var multiBarHorizontalData=[
-			{
-				key:"AM",
-				color:"Red",
-				values:[
-					{{#each barChartData1}}
-						{label: "{{key}}", value:{{value}}
+						{
+							key:"AM",
+							color:"Red",
+							values:[
+								{{#each barChartData1}}
+									{{#if key}}
+											{label: "{{key}}", value:{{value}}
+											},
+									{{else}}
+											{label: "12", value:{{value}}
+													},
+									{{/if}}
+								{{/each}}
+							]
 						},
-					{{/each}}
-				]
-			},
-			{
-				key:"PM",
-				color:"Yellow",
-				values:[
-					{{#each barChartData2}}
-						{label: "{{key}}", value:{{value}}
-						},
-					{{/each}}
-				]
-			}
-		];
+						{
+							key:"PM",
+							color:"Yellow",
+							values:[
+								{{#each barChartData2}}
+									{{#if key}}
+											{label: "{{key}}", value:{{value}}
+											},
+									{{else}}
+											{label: "12", value:{{value}}
+													},
+									{{/if}}
+								{{/each}}
+							]
+						}
+					];
+
 
 				nv.addGraph(function() {
 					var chart = nv.models.multiBarHorizontalChart()
@@ -233,18 +244,29 @@
 					{
 						"AM":[
 							{{#each barChartData1}}
-								{"Time": "{{key}}", "Size (kb)":{{value}}
-								},
+								{{#if key}}
+										{"Time": "{{key}}", "Size (kb)":{{value}}
+										},
+								{{else}}
+										{"Time": "12", "Size (kb)":{{value}}
+										},
+									{{/if}}
 							{{/each}}
 						],
 						"PM":[
 							{{#each barChartData2}}
-								{"Time": "{{key}}", "Size (kb)":{{value}}
-								},
+							{{#if key}}
+									{"Time": "{{key}}", "Size (kb)":{{value}}
+									},
+							{{else}}
+									{"Time": "12", "Size (kb)":{{value}}
+									},
+								{{/if}}
 							{{/each}}
 						]
 					}
 				];
+
 				d3.select("#sizeTable").selectAll("table")
 						.data([multiBarHorizontalData2])
 					.enter().append("table")
@@ -255,7 +277,7 @@
 
 				</div>
 			</div>
-		
+
 		<div class="columns">
 			<div class="column third-column">
 				{{! Vaybhav's part }}
@@ -269,9 +291,9 @@
 							},
 						{{/each}}
 					];
-					
-				
-					
+
+
+
 					d3.select("#barDisplayTable").selectAll("table")
                             .data([barDataValues])
                           .enter().append("table")
