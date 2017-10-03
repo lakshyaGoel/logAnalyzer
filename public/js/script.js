@@ -32,20 +32,35 @@
             front: ".graph",
             back: ".table"
         });
+         $("#prediction").hide();
+        
         // $(".table").css({"display": "none"});
 
         $(".switch-table").on("click", function(){
             // $(".graph").css({"display": "none"});
             // $(".table").css({"display": "block"}).fadeIn(200);
+            $("#prediction").hide();
+            $("#card").show();
             $("#card").flip(true);
             $(this).parent().addClass("is-active");
             $(".switch-graph").parent().removeClass("is-active");
+            $(".switch-predict").parent().removeClass("is-active");
         });
         $(".switch-graph").on("click", function(){
             // $(".table").css({"display": "none"});
             // $(".graph").css({"display": "block"}).fadeIn(200);
+            $("#prediction").hide();
+            $("#card").show();
             $("#card").flip(false);
             $(this).parent().addClass("is-active");
+            $(".switch-table").parent().removeClass("is-active");
+            $(".switch-predict").parent().removeClass("is-active");
+        });
+        $(".switch-predict").on("click", function(){
+            $("#card").hide();
+            $("#prediction").show();
+            $(this).parent().addClass("is-active");
+            $(".switch-graph").parent().removeClass("is-active");
             $(".switch-table").parent().removeClass("is-active");
         });
     });
