@@ -57,4 +57,16 @@ a {
   background-color: rgb(8,81,156);
   color: white;
 }
+#fixedFooter {
+   position:fixed;
+   left:0px;
+   bottom:0px;
+   height:40px;
+   width:100%;
+   background:#F5F5F5;
+}
+
+#fixedFooter .container {
+    margin: 15px;
+}
 /*# sourceMappingURL=style.css.map */
