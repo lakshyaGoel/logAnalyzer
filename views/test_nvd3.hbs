@@ -357,12 +357,33 @@
                                             {{/each}}
                                         ];
                         fileDataTypes = fileTypeDataFunc(fileTypeData);
-                        console.log(fileDataTypes);
+                        var temp = {};
+                        var updatedDataModel = [];
+                        var tempFile = [];
+
+                        fileDataTypes.forEach(function(a){
+                            temp = {};
+                            tempFile = [];
+                            temp["Request"] = a.key;
+                            var tempFileCount = {};
+                            (a.values).forEach(function(x){
+                                tempFileCount = {};
+                                tempFileCount["Type"] = x.label;
+                                tempFileCount["Count"] = x.value;
+                                tempFile.push(tempFileCount);
+                            });
+                            temp["Files"] = tempFile;
+                            updatedDataModel.push(temp);
+                        });
+            
                         d3.select("#scatterTable").selectAll("table")
-                            .data([fileDataTypes])
+                            .data([updatedDataModel])
                           .enter().append("table")
                             .call(recurse);
-
+                        /**
+                        * Source for the D3 Code 
+                        * http://bl.ocks.org/nautat/4085017
+                        **/
                         function recurse(sel) {
                           sel.each(function(d) {
                             var colnames,
@@ -401,7 +422,6 @@
 	<div id="prediction">
 		<script>
 			var res =[{{result}}];
-			console.log(res);
 			function drawResult()
 			{
 					var x = document.getElementById('x').value;
