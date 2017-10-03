@@ -58,7 +58,7 @@
 
 			var multiBarHorizontalData=[
 			{
-				key:"Day",
+				key:"AM",
 				color:"Red",
 				values:[
 					{{#each barChartData1}}
@@ -68,7 +68,7 @@
 				]
 			},
 			{
-				key:"Night",
+				key:"PM",
 				color:"Yellow",
 				values:[
 					{{#each barChartData2}}
@@ -246,55 +246,33 @@
 			</div>
 			<div class="column second-column">
 				{{! Nishka's part }}
+
 				<h2>Size chart</h2>
 				<div class="column-main">
+					<table id="sizeTable"></table>
 					<script>
-						$(function(){
-							$("#sizeTable").each(function () {
-								var pre_element = null;
-								var col_num = 0;
-								$(this).find('tr').each(function () {
-									var now_th = $(this).find('th').eq( col_num );
-									if (pre_element == null) {
-										pre_element = n;ow_th;
-									} else if (now_th.text() == pre_element.text()) {
-										now_th.remove();
-										if (pre_element.attr('rowspan') == null) pre_element.attr('rowspan', 1);
-										pre_element.attr('rowspan', parseInt(pre_element.attr('rowspan'),10) + 1);
-									} else {
-										pre_element = now_th;
-									}
-								});
-							});
-						});
+					var multiBarHorizontalData2=[
+					{
+						"AM":[
+							{{#each barChartData1}}
+								{"Time": "{{key}}", "Size":{{value}}
+								},
+							{{/each}}
+						],
+						"PM":[
+							{{#each barChartData2}}
+								{"Time": "{{key}}", "Size":{{value}}
+								},
+							{{/each}}
+						]
+					}
+				];
+				d3.select("#sizeTable").selectAll("table")
+						.data([multiBarHorizontalData2])
+					.enter().append("table")
+						.call(recurse);
 					</script>
-					<h2>Size Table</h2>
-					<div class="column-main">
-						<table class="table is-bordered is-striped is-narrow is-fullwidth" id="sizeTable">
-							<thead>
 
-							<tr>
-								<th>Time</th>
-								<th>Size</th>
-
-							</tr>
-							</thead>
-							<tbody>
-								{{#each barChartData1}}
-
-									<tr>
-									<th>{{key}}:00</th>
-									<td>{{value}}</td>
-									</tr>
-								{{/each}}
-								{{#each barChartData2}}
-									<tr>
-									<th>{{key}}:00</th>
-									<td>{{value}}</td>
-									</tr>
-								{{/each}}
-							</tbody>
-						</table>
 					</div>
 
 				</div>
@@ -375,44 +353,11 @@
                             temp["Files"] = tempFile;
                             updatedDataModel.push(temp);
                         });
-            
+
                         d3.select("#scatterTable").selectAll("table")
                             .data([updatedDataModel])
                           .enter().append("table")
                             .call(recurse);
-                        /**
-                        * Source for the D3 Code 
-                        * http://bl.ocks.org/nautat/4085017
-                        **/
-                        function recurse(sel) {
-                          sel.each(function(d) {
-                            var colnames,
-                                tds,
-                                table = d3.select(this);
-                            colnames = d                                                          
-                                .reduce(function(p,c) { return p.concat(d3.keys(c)); }, [])       
-                                .reduce(function(p,c) { return (p.set(c,0), p); }, d3.map())      
-                                .keys();                                                         
-                            table.append("thead").append("tr").selectAll("th")
-                                .data(colnames)
-                              .enter().append("th")
-                                .text(function(d) { return d; });
-                            tds = table.append("tbody").selectAll("tr")
-                                .data(d)                            
-                              .enter().append("tr").selectAll("td")
-                                .data(function(d) {                 
-                                  return colnames.map(function(k) { 
-                                    return d[k] || "";              
-                                  });
-                                })
-                              .enter().append("td");
-                            tds.filter(function(d) { return !(d instanceof Array); })
-                                .text(function(d) { return d; });
-                            tds.filter(function(d) { return (d instanceof Array); })
-                                .append("table")
-                                .call(recurse);
-                          });
-                        }
                     </script>
 				</div>
 			</div>

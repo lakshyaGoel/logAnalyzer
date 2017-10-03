@@ -49,6 +49,39 @@
             $(".switch-table").parent().removeClass("is-active");
         });
     });
+    /**
+    * Source for the D3 Code
+    * http://bl.ocks.org/nautat/4085017
+    **/
+    window.recurse = function(sel) {
+      sel.each(function(d) {
+        var colnames,
+            tds,
+            table = d3.select(this);
+        colnames = d
+            .reduce(function(p,c) { return p.concat(d3.keys(c)); }, [])
+            .reduce(function(p,c) { return (p.set(c,0), p); }, d3.map())
+            .keys();
+        table.append("thead").append("tr").selectAll("th")
+            .data(colnames)
+          .enter().append("th")
+            .text(function(d) { return d; });
+        tds = table.append("tbody").selectAll("tr")
+            .data(d)
+          .enter().append("tr").selectAll("td")
+            .data(function(d) {
+              return colnames.map(function(k) {
+                return d[k] || "";
+              });
+            })
+          .enter().append("td");
+        tds.filter(function(d) { return !(d instanceof Array); })
+            .text(function(d) { return d; });
+        tds.filter(function(d) { return (d instanceof Array); })
+            .append("table")
+            .call(recurse);
+      });
+    }
     window.fileTypeDataFunc = function (fileTypeDataUnMapped) {
         var GETCount = [];
         var POSTCount = [];
@@ -90,7 +123,7 @@
             , values: GETCount
         };
         fileDataTypes.push(doubleBarObj);
-        
+
         var toDelete = new Set([""]);
         fileDataTypes.forEach(function(x){
             var temp = x.values;
@@ -98,7 +131,7 @@
             newArray = temp.filter(obj => !toDelete.has(obj.label));
             x.values = newArray;
         });
-        
+
         return fileDataTypes;
     }
 })(jQuery);
