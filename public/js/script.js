@@ -91,6 +91,14 @@
         };
         fileDataTypes.push(doubleBarObj);
         
+        var toDelete = new Set([""]);
+        fileDataTypes.forEach(function(x){
+            var temp = x.values;
+            newArray = [];
+            newArray = temp.filter(obj => !toDelete.has(obj.label));
+            x.values = newArray;
+        });
+        
         return fileDataTypes;
     }
 })(jQuery);
