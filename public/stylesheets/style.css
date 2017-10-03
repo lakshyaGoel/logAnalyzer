@@ -75,6 +75,11 @@ a {
   background-color: rgb(8,81,156);
   color: white;
 }
+#sizeTable td {
+  background-color: White;
+  color: black;
+  border: 1px solid rgb(8,48,107);
+}
 #fixedFooter {
    position:fixed;
    left:0px;
