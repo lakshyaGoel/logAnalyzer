@@ -247,7 +247,7 @@
 			<div class="column second-column">
 				{{! Nishka's part }}
 
-				<h2>Size chart</h2>
+				<h2>Data Size Table</h2>
 				<div class="column-main">
 					<table id="sizeTable"></table>
 					<script>
@@ -255,13 +255,13 @@
 					{
 						"AM":[
 							{{#each barChartData1}}
-								{"Time": "{{key}}", "Size":{{value}}
+								{"Time": "{{key}}", "Size (kb)":{{value}}
 								},
 							{{/each}}
 						],
 						"PM":[
 							{{#each barChartData2}}
-								{"Time": "{{key}}", "Size":{{value}}
+								{"Time": "{{key}}", "Size (kb)":{{value}}
 								},
 							{{/each}}
 						]
