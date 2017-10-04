@@ -40,12 +40,11 @@ val=n;
 **[Add a screenshot of each key page (maximum 4)](https://stackoverflow.com/questions/10189356/how-to-add-screenshot-to-readmes-in-github-repository)
 along with a very brief caption:**
 
-![](https://media.giphy.com/media/gJIJjrdhO5OYo/giphy.gif)
 
 ![index](./screenshots/index.png)
 ![page1](./screenshots/page1.png)
-![page2](./screenshots/page1.png)
-![page3](./screenshots/page1.png)
+![page2](./screenshots/page2.png)
+![page3](./screenshots/page3.png)
 
 
 ## External Dependencies
