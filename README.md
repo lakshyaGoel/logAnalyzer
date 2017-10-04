@@ -43,6 +43,9 @@ along with a very brief caption:**
 ![](https://media.giphy.com/media/gJIJjrdhO5OYo/giphy.gif)
 
 ![index](./screenshots/index.png)
+![page1](./screenshots/page1.png)
+![page2](./screenshots/page1.png)
+![page3](./screenshots/page1.png)
 
 
 ## External Dependencies
