@@ -48,7 +48,7 @@
 		</div>
 		<div class="column second-column">
 			{{! Nishka's part }}
-			<h2>Size chart</h2>
+			<h2>Average Data Size chart</h2>
 
 				<svg id="sizeChart" class="barChart"></svg>
 
@@ -236,7 +236,7 @@
 			<div class="column second-column">
 				{{! Nishka's part }}
 
-				<h2>Data Size Table</h2>
+				<h2>Average Data Size Table</h2>
 				<div class="column-main">
 					<table id="sizeTable"></table>
 					<script>
@@ -276,11 +276,13 @@
 					</div>
 
 				</div>
-			</div>
+			<!-- </div>
 
-		<div class="columns">
+		<div class="columns"> -->
 			<div class="column third-column">
 				{{! Vaybhav's part }}
+				<h2>Time v/s Hits Table</h2>
+
 				<table id="barDisplayTable"></table>
 				<script>
 					var barDataValues=[
@@ -347,18 +349,30 @@
 	<div id="prediction">
        <section class="section">
            <div class="container is-widescreen">
+
                <script>
                     var res =[{{result}}];
+
                     function drawResult()
                     {
-                            var x = document.getElementById('x').value;
-                            document.getElementById("y").value = res[0]*Math.pow(x,3)+res[1]*Math.pow(x,2)+res[2]*Math.pow(x,1)+res[3];
+
+                            var time = document.getElementById('myTime').value;
+                            var hm=(time.split(":"));
+                            var x=parseInt(hm[0])+parseInt(hm[1])/100;
+                            var pred = Math.round(res[0]*Math.pow(x,3)+res[1]*Math.pow(x,2)+res[2]*Math.pow(x,1)+res[3],2);
+                            if(pred<0){
+                            	pred=0;
+                            }
+                            document.getElementById("y").innerHTML="Predicted Hits = "+pred;
                     }
                </script>
-               <div>
-                    Time<input type="text" id ="x"/>
-                    Hits<input id="y" readonly/>
-                    <input type="button" id="btnrefresh" value="Refresh" onclick="drawResult();" />
+               <div class="box">
+               		<h1 class="title is-6">Enter time and find the predicted hits </h1>
+               		<input type="time" class="control" name="myTime" id="myTime" />
+               		<input type="button" class="button is-dark is-small" id="btnrefresh" value="Enter" onclick="drawResult();" />
+               		<br><br>
+                    <b><label class="tag is-light" id="y" style="color: green">Hit Counts To Be Displayed Here</label></b>
+
                </div>
             </div>
         </section>
