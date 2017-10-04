@@ -137,12 +137,14 @@
 
 					nv.addGraph(function() {
 			        var chart = nv.models.discreteBarChart()
-			            .x(function(d) { return d.label+":00" })
-			            .y(function(d) { return d.value })
-			            .staggerLabels(true)
-			            //.staggerLabels(historicalBarChart[0].values.length > 8)
-			            .showValues(true)
-			            .duration(250)
+											        .x(function(d) { return d.label+":00" })
+											        .y(function(d) { return d.value })
+											        .staggerLabels(true)
+											        //.staggerLabels(historicalBarChart[0].values.length > 2000)
+											        .yDomain([0,120])
+											        .yRange([100,0])
+											        .showValues(true)
+											        .duration(500)
 			            ;
 
 				        d3.select('#barGraph')
