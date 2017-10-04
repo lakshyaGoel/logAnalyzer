@@ -32,7 +32,10 @@ val=n;
 **Describe the most challenging features you implemented
 (one sentence per bullet, maximum 4 bullets):**
 
-* ...
+* Implementing the project without using a database and using JSON
+* Implementing the Regression model to predict time vs hits
+* Implementing a project without using APIs for data analysis
+
 
 
 ## Screenshots of Site
