@@ -75,5 +75,5 @@ that would be necessary (or helpful) for us to test your application, please
 link to them here.  For example, if your project parses gzipped apache logs,
 provide a few gzipped apache logs here.
 
-* [log1](./test_data/log_have_3XXX_4XX.txt)
+* [log1](./test_data/log_have3XXX_4XX.txt)
 * [log2](./test_data/access_head1000.txt)
