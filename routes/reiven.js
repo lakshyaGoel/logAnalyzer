@@ -34,6 +34,7 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
         var barChartData1 = [];
         var barChartData2 = [];
         var aMap = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        var aCount = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
         var i;
         var type;
@@ -94,6 +95,7 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
             if(isNaN(sz))
               sz=0;
             aMap[hr]= aMap[hr]+sz;
+            aCount[hr]=aCount[hr]+1;
             // END: data parsing for barChart(Nishka)
         }// end for(i = 0; i < data.length; i++)
 
@@ -131,16 +133,31 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
 
 
 
-        // BEGIN: barchart data parting(Nishka)?
+        // BEGIN: barchart data parting(Nishka)
         for(i = 0; i <12; i++){
+          if(aCount[i]==0){
             barChartData1.push({
                   "key": i, "value": aMap[i]
               });
+          }else{
+            var tempVar = (aMap[i]/aCount[i]);
+            barChartData1.push({
+                  "key": i, "value": tempVar
+              });
+          }
+
         }
         for(i = 12; i <=23; i++){
+          if(aCount[i]==0){
             barChartData2.push({
                   "key": i-12, "value": aMap[i]
               });
+            }else{
+              var tempVar = (aMap[i]/aCount[i]);
+              barChartData2.push({
+                    "key": i-12, "value": tempVar
+                });
+            }
         }
         // END: barchart data parting(Nishka)?
 
@@ -179,6 +196,7 @@ router.post('/show-graph', upload.single("thefile") ,function(req, res, next){
         barchartdata.push(barcharttup);
 
         // END: barchart data parting(Vaybhav)?
+
         // BEGIN: Computing regression
         var result = regression.polynomial(regdata,{order:3});
         console.log(result);

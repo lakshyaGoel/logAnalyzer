@@ -48,7 +48,7 @@
 		</div>
 		<div class="column second-column">
 			{{! Nishka's part }}
-			<h2>Size chart</h2>
+			<h2>Average Data Size chart</h2>
 
 				<svg id="sizeChart" class="barChart"></svg>
 
@@ -236,7 +236,7 @@
 			<div class="column second-column">
 				{{! Nishka's part }}
 
-				<h2>Data Size Table</h2>
+				<h2>Average Data Size Table</h2>
 				<div class="column-main">
 					<table id="sizeTable"></table>
 					<script>
@@ -349,13 +349,13 @@
 	<div id="prediction">
        <section class="section">
            <div class="container is-widescreen">
-           		
+
                <script>
                     var res =[{{result}}];
-                    
+
                     function drawResult()
                     {
-                    		
+
                             var time = document.getElementById('myTime').value;
                             var hm=(time.split(":"));
                             var x=parseInt(hm[0])+parseInt(hm[1])/100;
@@ -372,7 +372,7 @@
                		<input type="button" class="button is-dark is-small" id="btnrefresh" value="Enter" onclick="drawResult();" />
                		<br><br>
                     <b><label class="tag is-light" id="y" style="color: green">Hit Counts To Be Displayed Here</label></b>
-                    
+
                </div>
             </div>
         </section>
