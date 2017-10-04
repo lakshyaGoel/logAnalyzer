@@ -21,6 +21,7 @@
     "regression": "^2.0.0",
     "request": "^2.65.0",
     "serve-favicon": "~2.4.2",
+    "simple-timepicker": "^1.1.1",
     "ua-parser-js": "^0.7.14",
     "url-parse": "^1.0.5"
   },
